@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MapService } from '../../services/map.service';
-import { LngLat, Map, NavigationControl } from 'mapbox-gl';
+import { LngLat, Map } from 'mapbox-gl';
 
 @Component({
   selector: 'app-map-view',
