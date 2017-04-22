@@ -37,7 +37,7 @@ export const firebaseConfig = {
     FormsModule,
     HttpModule,
     AngularFireModule.initializeApp(firebaseConfig),
-    
+
     // Kendo modules
     BrowserAnimationsModule,
     ButtonsModule,
