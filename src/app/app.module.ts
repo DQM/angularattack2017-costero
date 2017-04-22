@@ -7,6 +7,10 @@ import { AngularFireModule } from 'angularfire2';
 
 import { AppComponent } from './app.component';
 
+// Kendo Modules
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { ButtonsModule } from '@progress/kendo-angular-buttons';
+
 // Must export the config
 export const firebaseConfig = {
   apiKey: "AIzaSyBpuv374x9tse1V49NEQzg54zKj-Shw8cY",
@@ -25,7 +29,11 @@ export const firebaseConfig = {
     BrowserModule,
     FormsModule,
     HttpModule,
-    AngularFireModule.initializeApp(firebaseConfig)
+    AngularFireModule.initializeApp(firebaseConfig),
+    
+    // Kendo modules
+    BrowserAnimationsModule,
+    ButtonsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
