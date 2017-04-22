@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 
-import { DataApiService, UploadTask } from "./data-api.service";
-import { Issue } from "./issue";
+import { Issue } from "./core/issue";
+import { DataApiService, UploadTask } from "./services/data-api.service";
+import { MapService } from './services/map.service';
+
 
 @Component({
   selector: 'app-root',
@@ -13,7 +15,7 @@ export class AppComponent {
 
   private issues : any;
 
-  constructor(private data: DataApiService) {
+  constructor(private mapService: MapService, private data: DataApiService) {
 
     let issue = new Issue();
     issue.title = 'geo';
