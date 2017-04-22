@@ -1,4 +1,4 @@
-import { Injectable, Inject, EventEmitter } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';

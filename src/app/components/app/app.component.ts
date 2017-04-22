@@ -5,6 +5,7 @@ import { MapMarkerComponent } from '../../components/map-marker/map-marker.compo
 import { DataApiService, UploadTask } from "../../services/data-api.service";
 import { MapService } from '../../services/map.service';
 import { GeocodingService } from '../../services/geocoding.service';
+import { AuthService } from '../../services/auth.service';
 import { Location } from '../../core/location.class';
 import { LngLat, Map } from 'mapbox-gl';
 
@@ -19,7 +20,7 @@ export class AppComponent {
   private issuesLocationQuery: any;
   private topIssues: any;
 
-  constructor(private mapService: MapService, private data: DataApiService, private geocoding: GeocodingService) {
+  constructor(private mapService: MapService, private data: DataApiService, private geocoding: GeocodingService, private auth: AuthService) {
 
     let issue = new Issue();
     issue.title = 'geo';
@@ -57,6 +58,18 @@ export class AppComponent {
     }, () => {
       console.log('complete. Url: ' + uploadTask.downloadURL);
     });
+  }
+
+  login() {
+    this.auth.login();
+  }
+
+  logout() {
+    this.auth.logout();
+  }
+
+  get user() {
+    return this.auth.getUser();
   }
 
 }

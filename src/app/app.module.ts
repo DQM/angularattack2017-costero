@@ -5,10 +5,12 @@ import { HttpModule } from '@angular/http';
 
 import { AngularFireModule } from 'angularfire2';
 
+// Services
 import { WindowRefService } from './services/window-ref.service';
 import { DataApiService } from './services/data-api.service';
 import { MapService } from './services/map.service';
 import { GeocodingService } from "./services/geocoding.service";
+import { AuthService } from "./services/auth.service";
 
 // Components
 import { AppComponent } from './components/app/app.component';
@@ -73,7 +75,8 @@ export const firebaseConfig = {
     WindowRefService,
     DataApiService,
     MapService,
-    GeocodingService
+    GeocodingService,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })

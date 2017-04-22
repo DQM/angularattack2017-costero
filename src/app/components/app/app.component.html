@@ -12,6 +12,12 @@
 <input type="file" name="" value="" (change)="selectFile($event)">
 
 <button kendoButton (click)="onButtonClick()" [primary]="true">Kendo Button</button>
+<button kendoButton (click)="login()" [primary]="true">Login</button>
+<button kendoButton (click)="logout()">Logout</button>
+
+<div>
+  Logged in as {{ (user | async)?.displayName }}
+</div>
 
 <nav>
   <h1>Test Router</h1>
