@@ -1,3 +1,9 @@
 <h1>
   {{title}}
 </h1>
+
+<ul>
+  <li *ngFor="let issue of issues | async">
+    {{ (issue | async)?.title }} - {{ issue.$key }}
+  </li>
+</ul>

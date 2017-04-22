@@ -5,6 +5,8 @@ import { HttpModule } from '@angular/http';
 
 import { AngularFireModule } from 'angularfire2';
 
+import { WindowRefService } from './window-ref.service';
+import { DataApiService } from './data-api.service';
 import { AppComponent } from './app.component';
 
 // Must export the config
@@ -27,7 +29,7 @@ export const firebaseConfig = {
     HttpModule,
     AngularFireModule.initializeApp(firebaseConfig)
   ],
-  providers: [],
+  providers: [WindowRefService, DataApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
