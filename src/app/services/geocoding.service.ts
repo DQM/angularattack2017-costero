@@ -1,5 +1,3 @@
-// Ref: https://github.com/haoliangyu/ngx-mapboxgl-starter/blob/master/public_src/services/geocoding.service.ts
-
 import {Http, Headers, Response} from '@angular/http';
 import {Location} from '../core/location.class';
 import {Injectable} from '@angular/core';
@@ -10,47 +8,47 @@ import 'rxjs/add/operator/mergeMap';
 
 @Injectable()
 export class GeocodingService {
-    http: Http;
+  http: Http;
 
-    constructor(http: Http) {
-        this.http = http;
-    }
+  constructor(http: Http) {
+    this.http = http;
+  }
 
-    geocode(address: string) {
-        return this.http
-            .get(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}`)
-            .map(res => res.json())
-            .map(result => {
-                if (result.status !== 'OK') { throw new Error('unable to geocode address'); }
+  geocode(address: string) {
+    return this.http
+      .get(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}`)
+      .map(res => res.json())
+      .map(result => {
+        if (result.status !== 'OK') { throw new Error('unable to geocode address'); }
 
-                let location = new Location();
-                location.address = result.results[0].formatted_address;
-                location.latitude = result.results[0].geometry.location.lat;
-                location.longitude = result.results[0].geometry.location.lng;
+        let location = new Location();
+        location.address = result.results[0].formatted_address;
+        location.latitude = result.results[0].geometry.location.lat;
+        location.longitude = result.results[0].geometry.location.lng;
 
-                let viewPort = result.results[0].geometry.viewport;
-                location.viewBounds = new LngLatBounds(
-                    new LngLat(viewPort.southwest.lng, viewPort.southwest.lat),
-                    new LngLat(viewPort.northeast.lng, viewPort.northeast.lat)
-                );
+        let viewPort = result.results[0].geometry.viewport;
+        location.viewBounds = new LngLatBounds(
+          new LngLat(viewPort.southwest.lng, viewPort.southwest.lat),
+          new LngLat(viewPort.northeast.lng, viewPort.northeast.lat)
+        );
 
-                return location;
-            });
-    }
+        return location;
+      });
+  }
 
-    regeocode(lngLat: LngLat) {
-        return this.http
-          .get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lngLat.lat},${lngLat.lng}`)
-          .map(res => res.json())
-          .map(result => {
-            if (result.status !== 'OK' || result.results.length < 1) { throw new Error('unable to geocode lat/lng'); }
+  regeocode(lngLat: LngLat) {
+    return this.http
+      .get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lngLat.lat},${lngLat.lng}`)
+      .map(res => res.json())
+      .map(result => {
+        if (result.status !== 'OK' || result.results.length < 1) { throw new Error('unable to geocode lat/lng'); }
 
-            let location = new Location();
-            location.address = result.results[0].formatted_address;
-            location.latitude = lngLat.lat;
-            location.longitude = lngLat.lng;
+        let location = new Location();
+        location.address = result.results[0].formatted_address;
+        location.latitude = lngLat.lat;
+        location.longitude = lngLat.lng;
 
-            return location;
-          });
-    }
+        return location;
+      });
+  }
 }

@@ -17,7 +17,7 @@ export class DataApiService {
   private issues: any;
   private locations: any;
 
-  private window : any;
+  private window: any;
 
   constructor(af: AngularFire, @Inject(FirebaseApp) firebaseApp: firebase.app.App, windowRef: WindowRefService) {
 
@@ -54,7 +54,7 @@ export class DataApiService {
 
     let uuid = UUID.UUID();
     let ref = this.storage.ref('/issues_photos');
-    let uploadTask = ref.child(uuid+'-'+file.name).put(file);
+    let uploadTask = ref.child(uuid + '-' + file.name).put(file);
 
     return new UploadTask(uploadTask);
 
@@ -76,7 +76,7 @@ export class DataApiService {
 
       let onKeyEnteredRegistration = geoQuery.on("key_entered", (key, location, distance) => {
         resultMap[key] = this.db.object('/issues/' + key);
-        observer.next( Object.keys(resultMap).map(vk => resultMap[vk]) );
+        observer.next(Object.keys(resultMap).map(vk => resultMap[vk]));
       });
 
       // observer.complete();
@@ -89,7 +89,7 @@ export class DataApiService {
 
 export class UploadTask {
 
-  private _downloadUrl : string = '';
+  private _downloadUrl: string = '';
   private _completed: boolean = false;
 
   private _task: Observable<any>;
@@ -99,22 +99,22 @@ export class UploadTask {
     this._task = Observable.create(observer => {
 
       this.firebaseTask.on('state_changed',
-      // stream cb
-      snapshot => {
-        let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        let downloadURL = this.firebaseTask.snapshot.downloadURL;
-        observer.next({
-          progress: progress,
-          downloadURL: downloadURL,
-          snapshot: snapshot
+        // stream cb
+        snapshot => {
+          let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          let downloadURL = this.firebaseTask.snapshot.downloadURL;
+          observer.next({
+            progress: progress,
+            downloadURL: downloadURL,
+            snapshot: snapshot
+          });
+        },
+        // error cb
+        (error) => observer.error(error),
+        // complete cb
+        () => {
+          this._completed = true; return observer.complete()
         });
-      },
-      // error cb
-      (error) => observer.error(error),
-      // complete cb
-      () => {
-        this._completed = true; return observer.complete()
-      });
 
     });
 
@@ -133,4 +133,3 @@ export class UploadTask {
   }
 
 }
-
