@@ -18,6 +18,7 @@ import { MapViewComponent } from './components/map-view/map-view.component';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ButtonsModule } from '@progress/kendo-angular-buttons';
 import { UploadModule } from '@progress/kendo-angular-upload';
+import { DialogModule } from '@progress/kendo-angular-dialog';
 
 // Must export the config
 export const firebaseConfig = {
@@ -44,7 +45,8 @@ export const firebaseConfig = {
     // Kendo modules
     BrowserAnimationsModule,
     ButtonsModule,
-    UploadModule
+    UploadModule,
+    DialogModule
   ],
   providers: [WindowRefService, DataApiService, MapService],
   bootstrap: [AppComponent]
