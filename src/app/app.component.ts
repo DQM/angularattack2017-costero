@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 import { Issue } from "./core/issue";
 import { DataApiService, UploadTask } from "./services/data-api.service";
+import { GeocodingService } from "./services/geocoding.service";
 import { MapService } from './services/map.service';
 
 
@@ -15,7 +16,7 @@ export class AppComponent {
 
   private issues : any;
 
-  constructor(private mapService: MapService, private data: DataApiService) {
+  constructor(private mapService: MapService, private data: DataApiService, private geocoding: GeocodingService) {
 
     let issue = new Issue();
     issue.title = 'geo';
@@ -24,7 +25,12 @@ export class AppComponent {
     // data.addIssue(issue);
 
     this.issues = this.data.getIssuesAround([-8.0431353, -35.0062387], 300);
-    console.log(this.issues);
+
+    // subscribe to changes
+    geocoding.position.subscribe(v => console.log(v), err => console.log(err), () => console.log('completed') );
+
+    // get the last value
+    // console.log(geocoding.position.getValue());
 
   }
 

@@ -8,6 +8,7 @@ import { AngularFireModule } from 'angularfire2';
 import { WindowRefService } from './services//window-ref.service';
 import { DataApiService } from './services/data-api.service';
 import { MapService } from './services/map.service';
+import { GeocodingService } from "./services/geocoding.service";
 
 // Components
 import { AppComponent } from './app.component';
@@ -48,7 +49,12 @@ export const firebaseConfig = {
     UploadModule,
     DialogModule
   ],
-  providers: [WindowRefService, DataApiService, MapService],
+  providers: [
+    WindowRefService,
+    DataApiService,
+    MapService,
+    GeocodingService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
