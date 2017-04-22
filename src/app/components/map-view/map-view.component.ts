@@ -24,7 +24,7 @@ export class MapViewComponent implements OnInit {
     let map = new Map({
       container: 'map',
       style: 'mapbox://styles/mapbox/light-v9',
-      zoom: 5,
+      zoom: 15,
       center: [-78.880453, 42.897852]
     });
 

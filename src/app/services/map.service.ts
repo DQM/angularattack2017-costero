@@ -19,4 +19,8 @@ export class MapService {
     ];
   }
 
+  setCurrentPosition(longitude: number, latitude: number) {
+    this.map.setCenter(new mapboxgl.LngLat(longitude, latitude));
+  }
+
 }
