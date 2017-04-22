@@ -5,11 +5,14 @@ import { HttpModule } from '@angular/http';
 
 import { AngularFireModule } from 'angularfire2';
 
+// Components
 import { AppComponent } from './app.component';
+import { IssueFormComponent } from './issue-form/issue-form.component';
 
 // Kendo Modules
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ButtonsModule } from '@progress/kendo-angular-buttons';
+import { UploadModule } from '@progress/kendo-angular-upload';
 
 // Must export the config
 export const firebaseConfig = {
@@ -23,7 +26,8 @@ export const firebaseConfig = {
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    IssueFormComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +37,8 @@ export const firebaseConfig = {
     
     // Kendo modules
     BrowserAnimationsModule,
-    ButtonsModule
+    ButtonsModule,
+    UploadModule
   ],
   providers: [],
   bootstrap: [AppComponent]
