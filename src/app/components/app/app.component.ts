@@ -16,7 +16,7 @@ import { LngLat, Map } from 'mapbox-gl';
 export class AppComponent {
   title = 'app works!';
 
-  private issues: any;
+  private issuesLocationQuery: any;
 
   constructor(private mapService: MapService, private data: DataApiService, private geocoding: GeocodingService) {
 
@@ -24,9 +24,9 @@ export class AppComponent {
     issue.title = 'geo';
     issue.lat = -7.140095;
     issue.long = -34.851654;
-    // data.addIssue(issue);
+    data.addIssue(issue);
 
-    this.issues = this.data.getIssuesAround([-8.0431353, -35.0062387], 300);
+    this.issuesLocationQuery = this.data.getIssuesAround([-8.0431353, -35.0062387], 300);
 
     geocoding.getCurrentLocation().subscribe(v => console.log(v), err => console.log(err), () => console.log('completed') );
 

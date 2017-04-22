@@ -1,5 +1,5 @@
 import { Injectable, Inject, EventEmitter } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 import { AngularFire, FirebaseListObservable, FirebaseApp } from 'angularfire2';
 import * as firebase from 'firebase';
@@ -60,28 +60,9 @@ export class DataApiService {
 
   }
 
-  public getIssuesAround(location: any, radius: number) {
+  public getIssuesAround(location: any, radius: number) : IssuesLocationQuery {
 
-    return Observable.create(observer => {
-
-      let geoFire = new this.window.GeoFire(this.locations.$ref);
-
-      let resultMap = {};
-
-      // Create a GeoQuery centered at 'location'
-      let geoQuery = geoFire.query({
-        center: location,
-        radius: radius
-      });
-
-      let onKeyEnteredRegistration = geoQuery.on("key_entered", (key, location, distance) => {
-        resultMap[key] = this.db.object('/issues/' + key);
-        observer.next(Object.keys(resultMap).map(vk => resultMap[vk]));
-      });
-
-      // observer.complete();
-
-    });
+    return new IssuesLocationQuery(new this.window.GeoFire(this.locations.$ref), this.db, location, radius);
 
   }
 
@@ -131,5 +112,98 @@ export class UploadTask {
   public get task(): Observable<any> {
     return this._task;
   }
+
+}
+
+export class IssuesLocationQuery {
+
+  private _radius: number = 100; // 100km
+  private _location: Location;
+
+  private _running: boolean;
+
+  private _geoQuery: any;
+
+  private _bhs: BehaviorSubject<Issue[]>;
+
+  private _resultMap: any = {};
+
+  constructor(private geoFire: any, private db: any, location: Location, radius: number) {
+
+    this._bhs = new BehaviorSubject([]);
+
+    this._location = location;
+    this._radius = radius;
+
+    this.updateQuery();
+
+  }
+
+  public stop() {
+    if(!this._running) return;
+
+    this._running = false;
+
+    this._geoQuery.cancel();
+  }
+
+  private updateQuery() {
+
+    if (this._geoQuery) {
+      this._geoQuery.cancel();
+    }
+
+    this._resultMap = [];
+    this._bhs.next(Object.keys(this._resultMap).map(vk => this._resultMap[vk]));
+
+    // Create a GeoQuery centered at 'location'
+    this._geoQuery = this.geoFire.query({
+      center: this._location,
+      radius: this._radius
+    });
+
+    this._running = true;
+
+    let onKeyEnteredRegistration = this._geoQuery.on("key_entered", (key, location, distance) => {
+      this._resultMap[key] = this.db.object('/issues/' + key);
+      this._bhs.next(Object.keys(this._resultMap).map(vk => this._resultMap[vk]));
+    });
+
+    var onKeyExitedRegistration = this._geoQuery.on("key_exited", (key, location, distance) => {
+      if (key in this._resultMap) {
+        delete this._resultMap[key];
+        this._bhs.next(Object.keys(this._resultMap).map(vk => this._resultMap[vk]));
+      }
+    });
+
+    var onReadyRegistration = this._geoQuery.on("ready", () => {
+      // don not call complete or the observable will stop receiving signals
+      // observer.complete();
+    });
+
+  }
+
+  public get issues() : BehaviorSubject<Issue[]> {
+    return this._bhs;
+  }
+
+	public get radius(): number  {
+		return this._radius;
+	}
+
+	public set radius(value: number ) {
+		this._radius = value;
+    this.updateQuery();
+	}
+
+
+	public get location(): Location {
+		return this._location;
+	}
+
+	public set location(value: Location) {
+		this._location = value;
+    this.updateQuery();
+	}
 
 }

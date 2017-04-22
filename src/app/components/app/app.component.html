@@ -3,8 +3,8 @@
 </h1>
 
 <ul>
-  <li *ngFor="let issue of issues | async">
-    {{ (issue | async)?.title }} - {{ issue.$key }}
+  <li *ngFor="let issue of issuesLocationQuery.issues | async">
+    {{ (issue | async)?.title }} - {{ issue | async | json }}
   </li>
 </ul>
 
