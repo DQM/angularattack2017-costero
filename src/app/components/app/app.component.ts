@@ -28,11 +28,7 @@ export class AppComponent {
 
     this.issues = this.data.getIssuesAround([-8.0431353, -35.0062387], 300);
 
-    // subscribe to changes
-    geocoding.position.subscribe(v => console.log(v), err => console.log(err), () => console.log('completed') );
-
-    // get the last value
-    // console.log(geocoding.position.getValue());
+    geocoding.getCurrentLocation().subscribe(v => console.log(v), err => console.log(err), () => console.log('completed') );
 
   }
 

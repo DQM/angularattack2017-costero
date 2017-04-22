@@ -15,50 +15,43 @@ import {LngLat, LngLatBounds} from 'mapbox-gl';
 export class GeocodingService {
     http: Http;
 
-    private positionObservable: BehaviorSubject<Location> = null;
-
     constructor(http: Http) {
       this.http = http;
 
-      this.initPositionObs();
     }
 
-    private initPositionObs() {
-      this.positionObservable = new BehaviorSubject(new Location());
+    public getCurrentLocation() : Observable<Location> {
 
-      let options = { timeout: 20000 };
-      if (navigator.geolocation) {
+      return Observable.create(observer => {
 
-        let id = navigator.geolocation.watchPosition(
-          pos => {
-            let meta: any = {};
-            meta.timestamp = pos.timestamp;
-            meta.altitude = pos.coords.altitude;
-            meta.accuracy = pos.coords.accuracy;
+        let options = { timeout: 20000 };
+        if (navigator.geolocation) {
 
-            // build location
-            this.buildLocation(pos.coords, meta).subscribe(
-              (location) => this.positionObservable.next(location),
-              (err) => { this.positionObservable.error(err); navigator.geolocation.clearWatch(id); },
-              () => {}
-            );
+          let id = navigator.geolocation.getCurrentPosition(
+            pos => {
+              let meta: any = {};
+              meta.timestamp = pos.timestamp;
+              meta.altitude = pos.coords.altitude;
+              meta.accuracy = pos.coords.accuracy;
 
-          },
-          error => {
-            this.positionObservable.error(error);
-            navigator.geolocation.clearWatch(id);
-          },
-          options);
+              // build location
+              this.buildLocation(pos.coords, meta).subscribe(
+                (location) => observer.next(location),
+                (err) => { observer.error(err); },
+                () => observer.complete()
+              );
 
-      } else {
-        this.positionObservable.error('Browser Geolocation service failed.');
-      }
+            },
+            error => {
+              observer.error(error);
+            },
+            options);
 
-    }
+        } else {
+          observer.error('Browser Geolocation service failed.');
+        }
 
-    public get position() {
-
-      return this.positionObservable;
+      });
 
     }
 
