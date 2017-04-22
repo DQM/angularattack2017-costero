@@ -1,5 +1,7 @@
 import { Injectable, Inject, EventEmitter } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/mergeMap';
 
 import { AngularFire, FirebaseListObservable, FirebaseApp } from 'angularfire2';
 import * as firebase from 'firebase';
@@ -36,6 +38,18 @@ export class DataApiService {
   public getAllIssues(): FirebaseListObservable<any> {
 
     return this.issues;
+  }
+
+  public getTopIssues(limit?: number): Observable<Issue[]> {
+
+    limit = limit || 50;
+
+    return this.db.list('/issues', {
+      query: {
+        orderByChild: 'likes',
+        limitToLast: limit
+      }
+    }).map( arr => arr.sort( (a, b) => -(a.likes - b.likes) ) );
   }
 
   public addIssue(issue: Issue) {
