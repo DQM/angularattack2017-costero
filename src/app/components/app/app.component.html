@@ -12,6 +12,13 @@
 
 <button kendoButton (click)="onButtonClick()" [primary]="true">Kendo Button</button>
 
-<app-issue-form></app-issue-form>
+<nav>
+  <h1>Test Router</h1>
+<a routerLink="/map">Map</a>
+<a routerLink="/stats">Stats</a>
+</nav>
 
-<app-map-view></app-map-view>
+<router-outlet></router-outlet>
+<!--<app-issue-form></app-issue-form>
+
+<app-map-view></app-map-view>-->

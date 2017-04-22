@@ -10,7 +10,7 @@ import { DataApiService } from './services/data-api.service';
 import { MapService } from './services/map.service';
 
 // Components
-import { AppComponent } from './app.component';
+import { AppComponent } from './components/app/app.component';
 import { IssueFormComponent } from './components/issue-form/issue-form.component';
 import { MapViewComponent } from './components/map-view/map-view.component';
 
@@ -19,6 +19,19 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ButtonsModule } from '@progress/kendo-angular-buttons';
 import { UploadModule } from '@progress/kendo-angular-upload';
 import { DialogModule } from '@progress/kendo-angular-dialog';
+
+// Router
+import { RouterModule, Routes } from '@angular/router';
+import { AppHomeComponent } from './components/app-home/app-home.component';
+import { AppStatsComponent } from './components/app-stats/app-stats.component';
+
+const appRoutes: Routes = [
+  // { path: '', component: AppComponent},
+  { path: 'map', component: MapViewComponent},
+  // { path: 'home', redirectTo: '/map', pathMatch: 'full'},
+  { path: 'stats', component: AppStatsComponent},
+  { path: 'map/:issueId', component: MapViewComponent}
+];
 
 // Must export the config
 export const firebaseConfig = {
@@ -34,9 +47,14 @@ export const firebaseConfig = {
   declarations: [
     AppComponent,
     IssueFormComponent,
-    MapViewComponent
+    MapViewComponent,
+    AppHomeComponent,
+    AppStatsComponent
   ],
   imports: [
+    // Router
+    RouterModule.forRoot(appRoutes),
+
     BrowserModule,
     FormsModule,
     HttpModule,

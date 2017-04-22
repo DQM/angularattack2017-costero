@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 
-import { Issue } from "./core/issue";
-import { DataApiService, UploadTask } from "./services/data-api.service";
-import { MapService } from './services/map.service';
+import { Issue } from "../../core/issue";
+import { DataApiService, UploadTask } from "../../services/data-api.service";
+import { MapService } from '../../services/map.service';
 
 
 @Component({
