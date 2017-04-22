@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 
 import { WindowRefService } from './window-ref.service';
-import { Issue } from "./issue";
+import { Issue } from "../core/issue";
 
 @Injectable()
 export class DataApiService {
