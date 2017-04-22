@@ -5,8 +5,9 @@
   right: 0;
   bottom: 0;
   z-index: 200;
-  background-color: #000;
   color: #fff;
+  background-color: #000;
+  overflow-y: auto;
 }
 
 fieldset > legend {
