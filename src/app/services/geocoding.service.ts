@@ -3,10 +3,11 @@
 import {Http, Headers, Response} from '@angular/http';
 import {Injectable} from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
+
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
 
-import {Location} from '../core/location.class';
+import { Location } from '../core/location.class';
 import { Address } from '../core/address';
 import {LngLat, LngLatBounds} from 'mapbox-gl';
 
@@ -30,18 +31,16 @@ export class GeocodingService {
 
         let id = navigator.geolocation.watchPosition(
           pos => {
-            let location = new Location();
-            location.timestamp = pos.timestamp;
-            location.latitude = pos.coords.latitude;
-            location.longitude = pos.coords.longitude;
-            location.altitude = pos.coords.altitude;
-            location.accuracy = pos.coords.accuracy;
+            let meta: any = {};
+            meta.timestamp = pos.timestamp;
+            meta.altitude = pos.coords.altitude;
+            meta.accuracy = pos.coords.accuracy;
 
-            // query address and push location when done
-            this.regeocode(location).subscribe(
-              (address) => location.address = address,
+            // build location
+            this.buildLocation(pos.coords, meta).subscribe(
+              (location) => this.positionObservable.next(location),
               (err) => { this.positionObservable.error(err); navigator.geolocation.clearWatch(id); },
-              () => this.positionObservable.next(location)
+              () => {}
             );
 
           },
@@ -61,6 +60,27 @@ export class GeocodingService {
 
       return this.positionObservable;
 
+    }
+
+    public buildLocation(lngLat: LngLat, meta?: any): Observable<Location> {
+      return Observable.create(observer => {
+
+        let location = new Location();
+        location.latitude = lngLat.latitude;
+        location.longitude = lngLat.longitude;
+
+        if(meta) {
+          Object.keys(meta).forEach(k => location[k] = meta[k]);
+        }
+
+        // query address and push location when done
+        this.regeocode(location).subscribe(
+          (address) => location.address = address,
+          (err) => observer.error(err),
+          () => { observer.next(location); observer.complete(); }
+        );
+
+      });
     }
 
     geocode(address: string) {
@@ -127,4 +147,5 @@ export class GeocodingService {
             return address;
           });
     }
+
 }

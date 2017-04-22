@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Location } from '../core/location.class';
 import * as mapboxgl from 'mapbox-gl';
 import { Map } from 'mapbox-gl';
 
