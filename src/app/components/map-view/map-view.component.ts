@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+
+import { GeocodingService } from '../../services/geocoding.service';
+import { DataApiService } from "../../services/data-api.service";
 import { MapService } from '../../services/map.service';
 import { LngLat, Map } from 'mapbox-gl';
+import { MapMarkerComponent } from '../map-marker/map-marker.component';
 
 @Component({
   selector: 'app-map-view',
@@ -9,7 +13,11 @@ import { LngLat, Map } from 'mapbox-gl';
 })
 export class MapViewComponent implements OnInit {
 
-  constructor(private mapService: MapService) { }
+  private issuesLocationQuery: any = null;
+
+  constructor(private mapService: MapService, private geocoder: GeocodingService, private data: DataApiService) {
+
+  }
 
   ngOnInit() {
 
@@ -21,6 +29,15 @@ export class MapViewComponent implements OnInit {
     });
 
     this.mapService.map = map;
+
+    this.geocoder.getCurrentLocation().subscribe(
+      location => {
+        this.issuesLocationQuery = this.data.getIssuesAround(location, 5);
+      },
+      err => { console.log(err); },
+      () => { }
+    );
+
   }
 
 }

@@ -9,6 +9,7 @@ import { UUID } from 'angular2-uuid';
 
 import { WindowRefService } from './window-ref.service';
 import { Issue } from "../core/issue";
+import { Location } from "../core/location.class";
 
 @Injectable()
 export class DataApiService {
@@ -74,7 +75,7 @@ export class DataApiService {
 
   }
 
-  public getIssuesAround(location: any, radius: number) : IssuesLocationQuery {
+  public getIssuesAround(location: Location, radius: number) : IssuesLocationQuery {
 
     return new IssuesLocationQuery(new this.window.GeoFire(this.locations.$ref), this.db, location, radius);
 
@@ -172,7 +173,7 @@ export class IssuesLocationQuery {
 
     // Create a GeoQuery centered at 'location'
     this._geoQuery = this.geoFire.query({
-      center: this._location,
+      center: [this._location.latitude, this._location.longitude],
       radius: this._radius
     });
 

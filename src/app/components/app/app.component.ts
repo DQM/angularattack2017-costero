@@ -28,7 +28,7 @@ export class AppComponent {
     issue.long = -34.851654;
     // data.addIssue(issue);
 
-    this.issuesLocationQuery = this.data.getIssuesAround([-8.0431353, -35.0062387], 5);
+    // this.issuesLocationQuery = this.data.getIssuesAround([-8.0431353, -35.0062387], 5);
 
     this.topIssues = this.data.getTopIssues();
 

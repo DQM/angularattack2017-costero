@@ -1,2 +1,4 @@
 <div id="map" class="map">
 </div>
+
+<app-map-marker [issue]="issue" *ngFor="let issue of (issuesLocationQuery?.issues | async)"></app-map-marker>
