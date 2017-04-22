@@ -32,7 +32,7 @@ export class AppComponent {
 
     this.topIssues = this.data.getTopIssues();
 
-    geocoding.getCurrentLocation().subscribe(v => mapService.setCurrentPosition(v.longitude, v.latitude), err => console.log(err), () => console.log('completed') );
+    geocoding.getCurrentLocation().subscribe(v => console.log(v), err => console.log(err), () => console.log('completed') );
 
   }
 

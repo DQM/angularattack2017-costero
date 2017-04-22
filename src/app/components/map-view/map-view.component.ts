@@ -32,6 +32,7 @@ export class MapViewComponent implements OnInit {
 
     this.geocoder.getCurrentLocation().subscribe(
       location => {
+        this.mapService.setCurrentPosition(location.longitude, location.latitude);
         this.issuesLocationQuery = this.data.getIssuesAround(location, 5);
       },
       err => { console.log(err); },
