@@ -1,65 +1,78 @@
+<!-- <kendo-tabstrip>
+  <kendo-tabstrip-tab [title]="'Paris'" [selected]="true">
+    <ng-template kendoTabContent>
+    </ng-template>
+  </kendo-tabstrip-tab>
+  <kendo-tabstrip-tab [title]="'New York City'">
+    <ng-template kendoTabContent>
+    </ng-template>
+  </kendo-tabstrip-tab>
+  <kendo-tabstrip-tab [title]="'Sydney'" [disabled]="true"></kendo-tabstrip-tab>
+</kendo-tabstrip> -->
+
+
 <form action="#" class="k-form">
-    <fieldset>
-        <legend>Description</legend>
-        <!-- Title -->
-        <label for="issue-title" class="k-form-field">
+  <fieldset>
+    <legend>Description</legend>
+    <!-- Title -->
+    <label for="issue-title" class="k-form-field">
             <span>Title</span>
             <input id="issue-title" type="text" class="k-textbox">
         </label>
 
-        <!-- Description -->
-        <label for="issue-description" class="k-form-field">
+    <!-- Description -->
+    <label for="issue-description" class="k-form-field">
             <span>Description</span>
             <textarea id="issue-description" cols="30" rows="10" class="k-textarea"></textarea>
         </label>
 
-        <!-- Photos -->
-        <label for="issue-photo" class="k-form-field">
+    <!-- Photos -->
+    <label for="issue-photo" class="k-form-field">
             <span>Photo</span>
             <kendo-upload id="issue-photo"></kendo-upload>
         </label>
-    </fieldset>
+  </fieldset>
 
-    <fieldset>
-        <legend>Localization</legend>
-        <!-- City -->
-        <label for="issue-city" class="k-form-field">
+  <fieldset>
+    <legend>Localization</legend>
+    <!-- City -->
+    <label for="issue-city" class="k-form-field">
             <span>City</span>
             <input id="issue-city" type="text" class="k-textbox">
         </label>
 
-        <!-- State -->
-        <label for="issue-state" class="k-form-field">
+    <!-- State -->
+    <label for="issue-state" class="k-form-field">
             <span>State</span>
             <input id="issue-state" type="text" class="k-textbox">
         </label>
 
-        <!-- Country -->
-        <label for="issue-country" class="k-form-field">
+    <!-- Country -->
+    <label for="issue-country" class="k-form-field">
             <span>Country</span>
             <input id="issue-country" type="text" class="k-textbox">
         </label>
 
-        <!-- Latitude -->
-        <label for="issue-latitude" class="k-form-field">
+    <!-- Latitude -->
+    <label for="issue-latitude" class="k-form-field">
             <span>Latitude</span>
             <input id="issue-latitude" type="text" class="k-textbox" value="0.0" readonly>
         </label>
 
-        <!-- Longitude -->
-        <label for="issue-longitude" class="k-form-field">
+    <!-- Longitude -->
+    <label for="issue-longitude" class="k-form-field">
             <span>Longitude</span>
             <input id="issue-longitude" type="text" class="k-textbox" value="0.0" readonly>
         </label>
-    </fieldset>
+  </fieldset>
 
-    <button kendoButton [icon]="plus" *ngIf="!opened" (click)="submitForm()">Add issue</button>
+  <button kendoButton [icon]="plus" *ngIf="!opened" (click)="submitForm()">Add issue</button>
 
-    <kendo-dialog title="Please confirm" *ngIf="opened" (close)="close('cancel')">
-        <p>Are you sure you want to continue?</p>
-        <kendo-dialog-actions>
-            <button kendoButton (click)="close('no')">No</button>
-            <button kendoButton (click)="close('yes')" primary="true">Yes</button>
-        </kendo-dialog-actions>
-    </kendo-dialog>
+  <kendo-dialog title="Please confirm" *ngIf="opened" (close)="close('cancel')">
+    <p>Are you sure you want to continue?</p>
+    <kendo-dialog-actions>
+      <button kendoButton (click)="close('no')">No</button>
+      <button kendoButton (click)="close('yes')" primary="true">Yes</button>
+    </kendo-dialog-actions>
+  </kendo-dialog>
 </form>

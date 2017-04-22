@@ -23,6 +23,9 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ButtonsModule } from '@progress/kendo-angular-buttons';
 import { UploadModule } from '@progress/kendo-angular-upload';
 import { DialogModule } from '@progress/kendo-angular-dialog';
+import { LayoutModule } from '@progress/kendo-angular-layout';
+import { InputsModule } from '@progress/kendo-angular-inputs';
+import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 
 // Router
 import { RouterModule, Routes } from '@angular/router';
@@ -69,7 +72,10 @@ export const firebaseConfig = {
     BrowserAnimationsModule,
     ButtonsModule,
     UploadModule,
-    DialogModule
+    DialogModule,
+    LayoutModule,
+    InputsModule,
+    DropDownsModule
   ],
   providers: [
     WindowRefService,
