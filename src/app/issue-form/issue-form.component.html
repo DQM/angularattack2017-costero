@@ -6,7 +6,7 @@
             <span>Title</span>
             <input id="issue-title" type="text" class="k-textbox">
         </label>
-        
+
         <!-- Description -->
         <label for="issue-description" class="k-form-field">
             <span>Description</span>
@@ -39,7 +39,7 @@
             <span>Country</span>
             <input id="issue-country" type="text" class="k-textbox">
         </label>
-        
+
         <!-- Latitude -->
         <label for="issue-latitude" class="k-form-field">
             <span>Latitude</span>
@@ -52,4 +52,14 @@
             <input id="issue-longitude" type="text" class="k-textbox" value="0.0" readonly>
         </label>
     </fieldset>
+
+    <button kendoButton [icon]="plus" *ngIf="!opened" (click)="submitForm()">Add issue</button>
+
+    <kendo-dialog title="Please confirm" *ngIf="opened" (close)="close('cancel')">
+        <p>Are you sure you want to continue?</p>
+        <kendo-dialog-actions>
+            <button kendoButton (click)="close('no')">No</button>
+            <button kendoButton (click)="close('yes')" primary="true">Yes</button>
+        </kendo-dialog-actions>
+    </kendo-dialog>
 </form>
