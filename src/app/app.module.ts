@@ -14,9 +14,12 @@ import { AuthService } from "./services/auth.service";
 
 // Components
 import { AppComponent } from './components/app/app.component';
+import { AppHomeComponent } from './components/app-home/app-home.component';
+import { AppStatsComponent } from './components/app-stats/app-stats.component';
 import { IssueFormComponent } from './components/issue-form/issue-form.component';
 import { MapViewComponent } from './components/map-view/map-view.component';
 import { MapMarkerComponent } from './components/map-marker/map-marker.component';
+import { MapSidebarComponent } from './components/map-sidebar/map-sidebar.component';
 
 // Kendo Modules
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -29,13 +32,11 @@ import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 
 // Router
 import { RouterModule, Routes } from '@angular/router';
-import { AppHomeComponent } from './components/app-home/app-home.component';
-import { AppStatsComponent } from './components/app-stats/app-stats.component';
 
 const appRoutes: Routes = [
   // { path: '', component: AppComponent},
+  { path: 'home', component: AppHomeComponent},
   { path: 'map', component: MapViewComponent},
-  // { path: 'home', redirectTo: '/map', pathMatch: 'full'},
   { path: 'stats', component: AppStatsComponent},
   { path: 'map/:issueId', component: MapViewComponent}
 ];
@@ -57,12 +58,14 @@ export const firebaseConfig = {
     MapViewComponent,
     AppHomeComponent,
     AppStatsComponent,
-    MapMarkerComponent
+    MapMarkerComponent,
+    MapSidebarComponent
   ],
   imports: [
     // Router
     RouterModule.forRoot(appRoutes),
 
+    // Modules
     BrowserModule,
     FormsModule,
     HttpModule,
@@ -78,6 +81,7 @@ export const firebaseConfig = {
     DropDownsModule
   ],
   providers: [
+    // Services
     WindowRefService,
     DataApiService,
     MapService,
