@@ -5,9 +5,14 @@ import { HttpModule } from '@angular/http';
 
 import { AngularFireModule } from 'angularfire2';
 
+import { WindowRefService } from './services//window-ref.service';
+import { DataApiService } from './services/data-api.service';
+import { MapService } from './services/map.service';
+
 // Components
 import { AppComponent } from './app.component';
-import { IssueFormComponent } from './issue-form/issue-form.component';
+import { IssueFormComponent } from './components/issue-form/issue-form.component';
+import { MapViewComponent } from './components/map-view/map-view.component';
 
 // Kendo Modules
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -28,21 +33,22 @@ export const firebaseConfig = {
 @NgModule({
   declarations: [
     AppComponent,
-    IssueFormComponent
+    IssueFormComponent,
+    MapViewComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     AngularFireModule.initializeApp(firebaseConfig),
-    
+
     // Kendo modules
     BrowserAnimationsModule,
     ButtonsModule,
     UploadModule,
     DialogModule
   ],
-  providers: [],
+  providers: [WindowRefService, DataApiService, MapService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

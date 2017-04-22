@@ -19,9 +19,12 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.css"
+        "styles.css",
+        "../node_modules/mapbox-gl/dist/mapbox-gl.css"
       ],
-      "scripts": [],
+      "scripts": [
+        "../node_modules/geofire/dist/geofire.min.js"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",

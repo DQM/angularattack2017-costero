@@ -2,6 +2,16 @@
   {{title}}
 </h1>
 
+<ul>
+  <li *ngFor="let issue of issues | async">
+    {{ (issue | async)?.title }} - {{ issue.$key }}
+  </li>
+</ul>
+
+<input type="file" name="" value="" (change)="selectFile($event)">
+
 <button kendoButton (click)="onButtonClick()" [primary]="true">Kendo Button</button>
 
 <app-issue-form></app-issue-form>
+
+<app-map-view></app-map-view>

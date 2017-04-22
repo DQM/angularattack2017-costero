@@ -26,9 +26,12 @@
     "@progress/kendo-angular-l10n": "^0.3.0",
     "@progress/kendo-angular-upload": "^0.20.0",
     "@progress/kendo-theme-default": "^2.31.3",
+    "angular2-uuid": "^1.1.1",
     "angularfire2": "^2.0.0-beta.8",
     "core-js": "^2.4.1",
     "firebase": "^3.8.0",
+    "geofire": "^4.1.2",
+    "mapbox-gl": "^0.36.0",
     "rxjs": "^5.1.0",
     "zone.js": "^0.8.4"
   },
