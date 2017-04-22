@@ -5,14 +5,16 @@ import { HttpModule } from '@angular/http';
 
 import { AngularFireModule } from 'angularfire2';
 
-import { WindowRefService } from './services//window-ref.service';
+import { WindowRefService } from './services/window-ref.service';
 import { DataApiService } from './services/data-api.service';
 import { MapService } from './services/map.service';
+import { GeocodingService } from './services/geocoding.service';
 
 // Components
 import { AppComponent } from './app.component';
 import { IssueFormComponent } from './components/issue-form/issue-form.component';
 import { MapViewComponent } from './components/map-view/map-view.component';
+import { MapMarkerComponent } from './components/map-marker/map-marker.component';
 
 // Kendo Modules
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -34,7 +36,8 @@ export const firebaseConfig = {
   declarations: [
     AppComponent,
     IssueFormComponent,
-    MapViewComponent
+    MapViewComponent,
+    MapMarkerComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +51,7 @@ export const firebaseConfig = {
     UploadModule,
     DialogModule
   ],
-  providers: [WindowRefService, DataApiService, MapService],
+  providers: [WindowRefService, DataApiService, MapService, GeocodingService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
