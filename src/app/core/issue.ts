@@ -17,6 +17,6 @@ export class Issue {
   public date_solved: string = '';
 
   constructor() {
-	}
+  }
 
 }
