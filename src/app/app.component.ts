@@ -21,10 +21,13 @@ export class AppComponent {
     issue.long = -34.851654;
     // data.addIssue(issue);
 
-    this.issues = data.getIssuesAround([-8.0431353, -35.0062387], 2);
+    this.issues = data.getIssuesAround([-8.0431353, -35.0062387], 300);
     console.log(this.issues);
 
 
   }
 
-}
+  onButtonClick() {
+    this.title = 'Hello from Kendo UI';
+  }
+ }

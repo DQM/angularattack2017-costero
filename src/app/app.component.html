@@ -7,3 +7,7 @@
     {{ (issue | async)?.title }} - {{ issue.$key }}
   </li>
 </ul>
+
+<button kendoButton (click)="onButtonClick()" [primary]="true">Kendo Button</button>
+
+<app-issue-form></app-issue-form>
