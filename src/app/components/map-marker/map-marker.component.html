@@ -10,19 +10,19 @@
 <div #markerPopupEl class="marker-popup">
 
   <p>
-    <img [src]="issue.photos[0]" alt="">
+    <img [src]="(issue | async)?.photos[0]" *ngIf="(issue | async)?.photos && (issue | async)?.photos.length>0" alt="">
   </p>
-  <p>Title: {{ issue.title }}</p>
-  <p>Description: {{ issue.description }}</p>
+  <p>Title: {{ (issue | async)?.title }}</p>
+  <p>Description: {{ (issue | async)?.description }}</p>
   <p>Author: {{ (author | async)?.displayName }}</p>
   <p>Likes: {{ likes | async }}</p>
-  <p>Created: {{ issue.date_created }}</p>
+  <p>Created: {{ (issue | async)?.date_created }}</p>
 
   <p>
     Solved:
-    <span *ngIf="(issueObs | async)?.solved">Yes! 😍</span>
-    <span *ngIf="!(issueObs | async)?.solved && !owned()">No 😡</span>
-    <button kendoButton *ngIf="!(issueObs | async)?.solved && owned()" (click)="solve()" [primary]="true">Mark as solved!</button>
+    <span *ngIf="(issue | async)?.solved">Yes! 😍</span>
+    <span *ngIf="!(issue | async)?.solved && !(owned | async)">No 😡</span>
+    <button kendoButton *ngIf="!(issue | async)?.solved && (owned | async)" (click)="solve()" [primary]="true">Mark as solved!</button>
   </p>
 
   <p>

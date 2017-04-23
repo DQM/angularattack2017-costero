@@ -18,17 +18,17 @@ import { MapMouseEvent, Popup, Marker, LngLat } from 'mapbox-gl';
 export class MapMarkerComponent implements OnInit {
   @ViewChild('markerEl') el: ElementRef;
   @ViewChild('markerPopupEl') popupEl: ElementRef;
-  @Input('issue') issueObs: any;
+  @Input('issue') issue: any;
 
   private editing: boolean;
   private marker: any;
   private popup: any;
-  private issue: Issue;
   private author: Observable<Author>;
   private popupVisible: boolean = false;
 
   private hasLiked: Observable<boolean> = Observable.of(false);
   private likes: Observable<number> = Observable.of(0);
+  private owned: Observable<boolean> = Observable.of(false);
 
   constructor(private mapService: MapService, private geocoder: GeocodingService, private data: DataApiService, private auth: AuthService) {
     this.editing = false;
@@ -37,8 +37,9 @@ export class MapMarkerComponent implements OnInit {
 
   ngOnInit() {
 
-    this.hasLiked = this.data.hasLiked(this.issueObs.$ref.key);
-    this.likes = this.data.getTotalLikes(this.issueObs.$ref.key);
+    this.hasLiked = this.data.hasLiked(this.issue.$ref.key);
+    this.likes = this.data.getTotalLikes(this.issue.$ref.key);
+    this.owned = this.issue.take(1).map(issue => this.auth.getUser().getValue().uid == issue.author);
 
     this.popup = new Popup()
       .setDOMContent(this.popupEl.nativeElement);
@@ -48,9 +49,8 @@ export class MapMarkerComponent implements OnInit {
       .setPopup(this.popup)
       .addTo(this.mapService.map);
 
-    this.issueObs.subscribe(
+    this.issue.subscribe(
       iss => {
-        this.issue = iss;
         this.author = this.data.getAuthor(this.issue.author);
         this.marker.setLngLat([iss.long, iss.lat]);
       }
@@ -77,19 +77,15 @@ export class MapMarkerComponent implements OnInit {
     this.editing = !this.editing;
   }
 
-  owned() {
-    return this.auth.getUser().getValue().uid == this.issue.author;
-  }
-
   solve() {
-    this.issueObs.update({
+    this.issue.update({
       solved: true
     });
   }
 
   like() {
 
-    this.data.performLike(this.issueObs.$ref.key);
+    this.data.performLike(this.issue.$ref.key);
 
   }
 
