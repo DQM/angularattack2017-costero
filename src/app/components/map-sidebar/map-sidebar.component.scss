@@ -6,15 +6,16 @@
   bottom: 0;
   z-index: 200;
   overflow-y: auto;
-}
 
-.map-sidebar-add {
-  position: fixed;
-  width: 300px;
-  bottom: 0;
-  right: 0;
-  z-index: 10;
-  border-radius: 0;
+  &-add {
+    position: fixed;
+    width: 300px;
+    bottom: 0;
+    right: 0;
+    padding: 16px;
+    z-index: 10;
+    border-radius: 0;
+  }
 }
 
 .cancel-btn {
@@ -27,6 +28,22 @@
   border-left: 0;
 }
 
-kendo-tabstrip {
-  margin-bottom: 30px;
+kendo {
+  &-tabstrip {
+    margin-bottom: 30px;
+  }
+
+  &-panelbar {
+    border: none;
+  }
+}
+
+.k {
+  &-link {
+    display: none !important;
+  }
+
+  // &-content.k-state-active {
+  //   border: none;
+  // }
 }

@@ -23,4 +23,11 @@ export class MapService {
     this.map.setCenter(new mapboxgl.LngLat(longitude, latitude));
   }
 
+  flyTo(longitude: number, latitude: number) {
+    let camera: mapboxgl.CameraOptions = {};
+    camera.center = [longitude, latitude];
+    camera.zoom = 15;
+    this.map.flyTo(camera);
+  }
+
 }

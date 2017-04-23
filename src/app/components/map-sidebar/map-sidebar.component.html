@@ -4,26 +4,26 @@
     <kendo-tabstrip-tab [title]="'Recent Issues'" [selected]="true">
       <ng-template kendoTabContent>
         <kendo-panelbar>
-            <kendo-panelbar-item [title]="'Issues'" expanded="true" selected="true">
-                <ng-template kendoPanelBarContent>
-                    <div>
-                      <app-issue-list-item [issue]="issue" *ngFor="let issue of recentIssues | async"></app-issue-list-item>
-                    </div>
-                </ng-template>
-            </kendo-panelbar-item>
+          <kendo-panelbar-item [title]="'Issues'" expanded="true" selected="true">
+            <ng-template kendoPanelBarContent>
+              <div>
+                <app-issue-list-item [issue]="issue" *ngFor="let issue of recentIssues | async"></app-issue-list-item>
+              </div>
+            </ng-template>
+          </kendo-panelbar-item>
         </kendo-panelbar>
       </ng-template>
     </kendo-tabstrip-tab>
     <kendo-tabstrip-tab [title]="'Top Issues'">
       <ng-template kendoTabContent>
         <kendo-panelbar>
-            <kendo-panelbar-item [title]="'Issues'" expanded="true" selected="true">
-                <ng-template kendoPanelBarContent>
-                    <div>
-                      <app-issue-list-item [issue]="issue" *ngFor="let issue of topIssues | async"></app-issue-list-item>
-                    </div>
-                </ng-template>
-            </kendo-panelbar-item>
+          <kendo-panelbar-item [title]="'Issues'" expanded="true" selected="false">
+            <ng-template kendoPanelBarContent>
+              <div>
+                <app-issue-list-item [issue]="issue" *ngFor="let issue of topIssues | async"></app-issue-list-item>
+              </div>
+            </ng-template>
+          </kendo-panelbar-item>
         </kendo-panelbar>
       </ng-template>
     </kendo-tabstrip-tab>

@@ -27,6 +27,7 @@ export class MapViewComponent implements OnInit {
   private issuesLocationQuery: any = null;
 
   private selectedIssueId: string = null;
+  private selectedIssueKey: string = null;
 
   private window: any;
 
@@ -81,16 +82,31 @@ export class MapViewComponent implements OnInit {
         return this.data.getIssueFromIID(params['issueId']);
       }
       this.selectedIssueId = null;
-      return Observable.throw('Issue not found')
+      return Observable.of(null);
     })
     .subscribe(
       issue => {
 
         if(issue == null) {
-          this.router.navigate(['/map']);
+
+          this.selectedIssueKey = '';
+          this.geocoder.getCurrentLocation().subscribe(
+            location => {
+              if (this.issuesLocationQuery) {
+                this.issuesLocationQuery.stop();
+                this.issuesLocationQuery = null;
+              }
+              this.issuesLocationQuery = this.data.getIssuesAround(location, 5);
+              this.mapService.flyTo(location.longitude, location.latitude);
+            },
+            err => { console.log(err); },
+            () => { }
+          );
+
           return;
         }
 
+        this.selectedIssueKey = (<any>issue).$key;
         if (this.issuesLocationQuery) {
           this.issuesLocationQuery.stop();
           this.issuesLocationQuery = null;
@@ -99,33 +115,12 @@ export class MapViewComponent implements OnInit {
         location.latitude = issue.lat;
         location.longitude = issue.long;
 
-        let camera: mapboxgl.CameraOptions = {};
-        camera.center = [location.longitude, location.latitude];
-        this.mapService.map.flyTo(camera);
-        // this.mapService.setCurrentPosition(location.longitude, location.latitude);
+        this.mapService.flyTo(location.longitude, location.latitude);
         this.issuesLocationQuery = this.data.getIssuesAround(location, 5);
 
       },
-      // No issue selected
-      err => {
-
-        this.geocoder.getCurrentLocation().subscribe(
-          location => {
-            if (this.issuesLocationQuery) {
-              this.issuesLocationQuery.stop();
-              this.issuesLocationQuery = null;
-            }
-            this.issuesLocationQuery = this.data.getIssuesAround(location, 5);
-            // this.mapService.setCurrentPosition(location.longitude, location.latitude);
-            let camera: mapboxgl.CameraOptions = {};
-            camera.center = [location.longitude, location.latitude];
-            this.mapService.map.flyTo(camera);
-          },
-          err => { console.log(err); },
-          () => { }
-        );
-
-      }
+      // Error
+      err => console.log
     );
 
   }

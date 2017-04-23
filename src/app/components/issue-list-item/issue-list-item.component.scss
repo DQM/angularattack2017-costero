@@ -1,0 +1,39 @@
+.issue {
+  &-item {
+    display: inline-block;
+    width: 100%;
+    margin: 16px 0;
+
+    h2 {
+      font-size: 1.3em;
+      font-weight: normal;
+      line-height: 100%;
+      margin: 0;
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.8em;
+    }
+
+    &-count {
+      float: left;
+      display: inline;
+      margin-right: 16px;
+      padding: 6px 12px;
+      border-radius: 3px;
+      background-color: #0275d8;
+      color: #fff;
+    }
+
+    &-description {
+      float: left;
+      display: inline;
+      width: 170px;
+    }
+
+    &-button {
+      float: right;
+    }
+  }
+}
