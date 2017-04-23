@@ -20,9 +20,9 @@
 
   <p>
     Solved:
-    <span *ngIf="issue.solved">Yes! 😍</span>
-    <span *ngIf="!issue.solved && !owned()">No 😡</span>
-    <button kendoButton *ngIf="!issue.solved && owned()" (click)="solve()" [primary]="true">Mark as solved!</button>
+    <span *ngIf="(issueObs | async)?.solved">Yes! 😍</span>
+    <span *ngIf="!(issueObs | async)?.solved && !owned()">No 😡</span>
+    <button kendoButton *ngIf="!(issueObs | async)?.solved && owned()" (click)="solve()" [primary]="true">Mark as solved!</button>
   </p>
 
   <p>

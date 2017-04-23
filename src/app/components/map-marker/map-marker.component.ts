@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 
 import { DataApiService } from '../../services/data-api.service';
+import { AuthService } from '../../services/auth.service';
 import { GeocodingService } from '../../services/geocoding.service';
 import { MapService } from '../../services/map.service';
 import { Location } from '../../core/location.class';
@@ -29,7 +30,7 @@ export class MapMarkerComponent implements OnInit {
   private hasLiked: Observable<boolean> = Observable.of(false);
   private likes: Observable<number> = Observable.of(0);
 
-  constructor(private mapService: MapService, private geocoder: GeocodingService, private data: DataApiService) {
+  constructor(private mapService: MapService, private geocoder: GeocodingService, private data: DataApiService, private auth: AuthService) {
     this.editing = false;
 
   }
@@ -40,7 +41,6 @@ export class MapMarkerComponent implements OnInit {
     this.likes = this.data.getTotalLikes(this.issueObs.$ref.key);
 
     this.popup = new Popup()
-      // .setHTML('Title: asdasjjjjjjjjjjjjjjjj j asdla ksjdlaks jdkalsjd lkajdklasjd lkajd lkajdlkajdl');
       .setDOMContent(this.popupEl.nativeElement);
 
     this.marker = new Marker(this.el.nativeElement)
@@ -78,11 +78,13 @@ export class MapMarkerComponent implements OnInit {
   }
 
   owned() {
-    return false;
+    return this.auth.getUser().getValue().uid == this.issue.author;
   }
 
-  solved() {
-    // TODO
+  solve() {
+    this.issueObs.update({
+      solved: true
+    });
   }
 
   like() {
