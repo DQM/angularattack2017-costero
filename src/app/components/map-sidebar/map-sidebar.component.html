@@ -4,7 +4,7 @@
     <kendo-tabstrip-tab [title]="'Recent Issues'" [selected]="true">
       <ng-template kendoTabContent>
         <kendo-panelbar>
-            <kendo-panelbar-item [title]="'Issues'" expanded="true">
+            <kendo-panelbar-item [title]="'Issues'" expanded="true" selected="true">
                 <ng-template kendoPanelBarContent>
                     <div>
                         <div *ngFor="let issue of recentIssues | async">
@@ -24,7 +24,7 @@
     <kendo-tabstrip-tab [title]="'Top Issues'">
       <ng-template kendoTabContent>
         <kendo-panelbar>
-            <kendo-panelbar-item [title]="'Issues'" expanded="true">
+            <kendo-panelbar-item [title]="'Issues'" expanded="true" selected="true">
                 <ng-template kendoPanelBarContent>
                     <div>
                         <div *ngFor="let issue of topIssues | async">
