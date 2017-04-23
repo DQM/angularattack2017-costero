@@ -51,10 +51,10 @@ export class DataApiService {
 
     return this.db.list('/issues', {
       query: {
-        orderByChild: 'likes',
+        orderByChild: '_likes',
         limitToLast: limit
       }
-    }).map( arr => arr.sort( (a, b) => -(a.likes - b.likes) ) );
+    }).map( arr => arr.sort( (a, b) => -(a._likes - b._likes) ) );
   }
 
   public getRecentIssues(limit?: number): Observable<Issue[]> {
@@ -141,9 +141,16 @@ export class DataApiService {
 
         liked => {
           if(liked) return resolve(true);
-          this.db.object('/issues/' + issueId + '/likes_uids/'+this.auth.getUser().getValue().uid).set(true)
-          .then(resolve)
-          .catch(reject);
+
+          this.db.object('/issues/' + issueId + '/likes_uids/' + this.auth.getUser().getValue().uid).set(true)
+          .then(() => {
+
+            this.getTotalLikes(issueId).subscribe(
+              total => this.db.object('/issues/' + issueId + '/_likes').set(total).then(resolve).catch(reject),
+              err => reject(err)
+            );
+
+          }).catch(reject);
         },
         reject
 

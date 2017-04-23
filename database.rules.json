@@ -3,7 +3,7 @@
     ".read": "true",
     ".write": "true",
     "issues": {
-      ".indexOn": ["date_created", "likes", "iid"]
+      ".indexOn": ["date_created", "_likes", "iid"]
     },
     "locations": {
       ".indexOn": ["g"]
