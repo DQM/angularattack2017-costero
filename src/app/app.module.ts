@@ -35,7 +35,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 const appRoutes: Routes = [
   // { path: '', component: AppComponent},
-  { path: 'home', component: AppHomeComponent},
+  { path: '', redirectTo: '/map', pathMatch: 'full' },
   { path: 'map', component: MapViewComponent},
   { path: 'stats', component: AppStatsComponent},
   { path: 'map/:issueId', component: MapViewComponent}

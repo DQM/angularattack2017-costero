@@ -32,11 +32,25 @@ export class AuthService {
     return this._bhs.getValue() != null;
   }
 
-  public login(){
+  public login(): Promise<any> {
 
-    this.af.auth.login({
-      provider: AuthProviders.Facebook,
-      method: AuthMethods.Popup,
+    return new Promise((resolve, reject) => {
+
+      this.af.auth.login({
+        provider: AuthProviders.Facebook,
+        method: AuthMethods.Popup,
+      })
+      .then(authState => {
+
+        this.af.database.object('/users/'+authState.uid).set({
+          displayName: authState.auth.displayName,
+          email: authState.auth.email,
+          photoUrl: authState.auth.photoURL
+        }).then(() => resolve() ).catch(reject);
+
+      })
+      .catch(reject);
+
     });
 
   }

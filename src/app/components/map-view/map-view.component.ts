@@ -37,6 +37,7 @@ export class MapViewComponent implements OnInit {
       location => {
         this.mapService.setCurrentPosition(location.longitude, location.latitude);
         this.issuesLocationQuery = this.data.getIssuesAround(location, 5);
+        this.mapService.setCurrentPosition(location.longitude, location.latitude);
       },
       err => { console.log(err); },
       () => { }
