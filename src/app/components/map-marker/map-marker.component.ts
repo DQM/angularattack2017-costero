@@ -19,6 +19,7 @@ export class MapMarkerComponent implements OnInit {
   @ViewChild('markerEl') el: ElementRef;
   @ViewChild('markerPopupEl') popupEl: ElementRef;
   @Input('issue') issue: any;
+  @Input('startOpen') startOpen: boolean = false;
 
   private editing: boolean;
   private marker: any;

@@ -53,11 +53,26 @@ export class DataApiService {
     }).map( arr => arr.sort( (a, b) => -(a.likes - b.likes) ) );
   }
 
-  public addIssue(issue: Issue) {
+  public addIssue(issue: Issue): Promise<any> {
 
-    let newKey = this.issues.push(issue).key;
-    let geoFire = new this.window.GeoFire(this.locations.$ref);
-    geoFire.set(newKey, [issue.lat, issue.long]);
+    return new Promise( (resolve, reject) => {
+
+      issue.iid = UUID.UUID();
+
+      this.auth.getUser().first().subscribe(
+        user => {
+
+          issue.author = user.uid;
+
+          let newKey = this.issues.push(issue).key;
+          let geoFire = new this.window.GeoFire(this.locations.$ref);
+          geoFire.set(newKey, [issue.lat, issue.long]);
+
+        },
+        reject
+      );
+
+    });
 
   }
 
@@ -72,6 +87,20 @@ export class DataApiService {
     let uploadTask = ref.child(uuid + '-' + file.name).put(file);
 
     return new UploadTask(uploadTask);
+
+  }
+
+  public getIssueFromIID(iid: string): Observable<Issue> {
+
+    return this.db.list('/issues/', {
+      query: {
+        orderByChild: 'iid',
+        equalTo: iid,
+        limitToFirst: 1
+      }
+    })
+    // return Issue or null
+    .map(res => res && res.length > 0 ? res[0] : null);
 
   }
 
