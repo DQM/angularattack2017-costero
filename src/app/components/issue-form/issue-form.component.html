@@ -61,9 +61,9 @@
   <span>{{ error }}</span>
 </form>
 
-<kendo-dialog *ngIf="added" (close)="close()">
+<kendo-dialog *ngIf="added" (close)="closeDialog()">
   <p>Successful adding the issue! Thanks for contributing.</p>
   <kendo-dialog-actions>
-    <button kendoButton (click)="close()" primary="true">Ok</button>
+    <button kendoButton (click)="closeDialog()" primary="true">Ok</button>
   </kendo-dialog-actions>
 </kendo-dialog>

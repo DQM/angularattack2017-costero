@@ -57,7 +57,14 @@ export class IssueFormComponent implements OnInit {
         this.issue.city = location.address.city;
         this.issue.state = location.address.state;
         this.issue.country = location.address.country;
-      }, error => console.error(error));
+      },
+      error => {
+        // console.error(error);
+        this.issue.city = '';
+        this.issue.state = '';
+        this.issue.country = '';
+      }
+      );
 
     this.issue.lat = center.lat;
     this.issue.long = center.lng;
@@ -65,17 +72,20 @@ export class IssueFormComponent implements OnInit {
   }
 
   submitForm() {
+    this.pService.start();
+
     this.issue.solved = false;
     this.issue.date_created = new Date().toUTCString();
     this.issue.photos = this.photos.map(photo => photo.downloadURL);
     this.data.addIssue(this.issue)
-      .then(() => this.successAdding)
+      .then(() => this.successAdding())
       .catch(err => this.failAdding());
   }
 
   successAdding() {
     this.added = true;
     this.issue = new Issue();
+    this.pService.done();
   }
 
   failAdding() {

@@ -79,6 +79,9 @@ export class MapMarkerComponent implements OnInit {
     }
   }
 
+  public isOpen() {
+    return this.popup && this.popup.isOpen();
+  }
 
   solve() {
     this.issue.update({

@@ -2,7 +2,7 @@
   <span class="k-icon k-i-marker-pin"></span>
 </div>
 
-<div #markerPopupEl class="marker-popup">
+<div #markerPopupEl class="marker-popup" [ngClass]="{open: isOpen()}">
 
   <p>
     <img [src]="(issue | async)?.photos[0]" *ngIf="(issue | async)?.photos && (issue | async)?.photos.length>0" alt="">
