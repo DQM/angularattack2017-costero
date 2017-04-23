@@ -17,6 +17,21 @@ import { LngLat, Map } from 'mapbox-gl';
 export class AppComponent {
   title = 'app works!';
 
-  constructor() { }
+  constructor(private data: DataApiService, private auth: AuthService) {
+
+    auth.getUser().subscribe(
+      user => {
+        if(user == null) return;
+
+        let issue = new Issue();
+        issue.lat = -7.1476534;
+        issue.long = -34.8458601;
+        issue.title = 'Test';
+        issue.description = 'blabla';
+        // data.addIssue(issue);
+      }
+    );
+
+  }
 
 }

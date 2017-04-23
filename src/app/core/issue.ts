@@ -2,6 +2,7 @@ import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
 
 export class Issue {
 
+  public iid: string = '';
   public lat: number = 0;
   public long: number = 0;
   public title: string = '';

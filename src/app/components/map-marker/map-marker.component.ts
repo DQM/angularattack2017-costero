@@ -19,6 +19,7 @@ export class MapMarkerComponent implements OnInit {
   @ViewChild('markerEl') el: ElementRef;
   @ViewChild('markerPopupEl') popupEl: ElementRef;
   @Input('issue') issue: any;
+  @Input('startOpen') startOpen: boolean = false;
 
   private editing: boolean;
   private marker: any;
@@ -57,7 +58,7 @@ export class MapMarkerComponent implements OnInit {
     );
 
     this.mapService.map.on('click', (e: MapMouseEvent) => {
-      if (this.editing) {
+      if (!this.editing) {
         let latlng: any = {};
         latlng.longitude = e.lngLat.lng;
         latlng.latitude = e.lngLat.lat;
