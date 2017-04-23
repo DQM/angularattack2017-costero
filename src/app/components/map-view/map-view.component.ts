@@ -84,6 +84,11 @@ export class MapViewComponent implements OnInit {
     .subscribe(
       issue => {
 
+        if(issue == null) {
+          this.router.navigate(['/map']);
+          return;
+        }
+
         if (this.issuesLocationQuery) {
           this.issuesLocationQuery.stop();
           this.issuesLocationQuery = null;

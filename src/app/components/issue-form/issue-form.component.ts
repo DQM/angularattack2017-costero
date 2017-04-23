@@ -79,7 +79,7 @@ export class IssueFormComponent implements OnInit {
     this.issue.photos = this.photos.map(photo => photo.downloadURL);
     this.data.addIssue(this.issue)
       .then(() => this.successAdding())
-      .catch(err => this.failAdding());
+      .catch(err => this.failAdding(err));
   }
 
   successAdding() {
@@ -88,7 +88,8 @@ export class IssueFormComponent implements OnInit {
     this.pService.done();
   }
 
-  failAdding() {
+  failAdding(err) {
+    console.log(err);
     this.error = "Error, try again.";
   }
 

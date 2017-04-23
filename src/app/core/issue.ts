@@ -16,6 +16,7 @@ export class Issue {
   public date_created: number = 0;
   public date_solved: number = 0;
   public likes_uids: string[] = [];
+  public _likes: number = 0;
 
   constructor() {
   }
