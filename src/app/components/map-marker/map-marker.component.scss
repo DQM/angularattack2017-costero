@@ -1,6 +1,12 @@
 
 .marker {
   cursor: pointer;
+
+  span {
+    font-size: 32px;
+    color: #0275d8;
+  }
+
 }
 
 .marker-popup {
