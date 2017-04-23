@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable, BehaviorSubject } from 'rxjs';
 
 import { DataApiService } from '../../services/data-api.service';
@@ -22,15 +23,20 @@ export class MapMarkerComponent implements OnInit {
   @Input('startOpen') startOpen: boolean = false;
 
   private marker: any;
-  private popup: any;
   private author: Observable<Author>;
-  private popupVisible: boolean = false;
+  private userClicked: boolean = false;
 
   private hasLiked: Observable<boolean> = Observable.of(false);
   private likes: Observable<number> = Observable.of(0);
   private owned: Observable<boolean> = Observable.of(false);
 
-  constructor(private mapService: MapService, private geocoder: GeocodingService, private data: DataApiService, private auth: AuthService) { }
+  constructor(
+    private mapService: MapService,
+    private geocoder: GeocodingService,
+    private data: DataApiService,
+    private auth: AuthService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
 
@@ -38,12 +44,9 @@ export class MapMarkerComponent implements OnInit {
     this.likes = this.data.getTotalLikes(this.issue.$ref.key);
     this.owned = this.issue.take(1).map(issue => this.auth.getUser().getValue().uid == issue.author);
 
-    this.popup = new Popup()
-      .setDOMContent(this.popupEl.nativeElement);
-
     this.marker = new Marker(this.el.nativeElement)
       .setLngLat([30.5, 50.5])
-      .setPopup(this.popup)
+      // .setPopup(this.popup)
       .addTo(this.mapService.map);
 
     this.issue.subscribe(
@@ -52,7 +55,20 @@ export class MapMarkerComponent implements OnInit {
         this.marker.setLngLat([iss.long, iss.lat]);
       }
     );
+
+    if(this.startOpen) {
+      let cb = (p) => {
+        this.router.navigate(['/map']);
+        // this.popup.off(popupCloseCb);
+      };
+      var p = new Popup()
+        .setDOMContent(this.popupEl.nativeElement)
+        .setLngLat(this.marker.getLngLat())
+        .on('close', cb.bind(p))
+        .addTo(this.mapService.map);
+    }
   }
+
 
   solve() {
     this.issue.update({
@@ -63,7 +79,15 @@ export class MapMarkerComponent implements OnInit {
   like() {
 
     this.data.performLike(this.issue.$ref.key);
+  }
 
+  click() {
+    this.issue.first().subscribe(
+      iss => {
+        this.userClicked = true;
+        this.router.navigate(['/map', iss.iid]);
+      }
+    );
   }
 
 }
