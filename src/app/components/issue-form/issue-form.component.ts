@@ -71,7 +71,7 @@ export class IssueFormComponent implements OnInit {
 
   }
 
-  submitForm() {
+  submitForm() { // TODO: Wait until the photos upload has finished
     this.pService.start();
 
     this.issue.solved = false;
