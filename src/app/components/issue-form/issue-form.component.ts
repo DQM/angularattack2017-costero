@@ -152,7 +152,8 @@ export class IssueFormComponent implements OnInit {
           err => reject,
           () => resolve({
             downloadURL: task.downloadURL,
-            name: task.file.name
+            name: task.file.name,
+            ref: task.ref
           })
         );
       });
@@ -170,6 +171,14 @@ export class IssueFormComponent implements OnInit {
 
     }).catch(err => console.log);
 
+  }
+
+  removePhoto(index) {
+    this.photos[index].ref.delete().then(() => {
+
+      this.photos.splice(index, 1);
+
+    }).catch(console.log);
   }
 
 }

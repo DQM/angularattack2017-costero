@@ -252,6 +252,10 @@ export class UploadTask {
     return this._task;
   }
 
+  public get ref(): any {
+    return this.firebaseTask.snapshot.ref;
+  }
+
 }
 
 export class IssuesLocationQuery {

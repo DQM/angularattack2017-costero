@@ -20,8 +20,8 @@
           <span>Photo</span>
           <input #fileInput type="file" class="hidden-file-input" (change)="onSelectFile($event)" accept="image/*" multiple="true">
           <button kendoButton (click)="openFileSelection()" primary="true" [disabled]="loadingImages">Select photo</button>
-          <p *ngFor="let photo of photos">
-            <span>x</span> {{ photo.name }}
+          <p *ngFor="let photo of photos; let i = index">
+            <button class="issue-item-button" kendoButton (click)="removePhoto(i)" [icon]="'delete'"></button> {{ photo.name }}
           </p>
       </label>
     </fieldset>
