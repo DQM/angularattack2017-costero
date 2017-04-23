@@ -39,8 +39,8 @@ import { IssueListItemComponent } from './components/issue-list-item/issue-list-
 
 const appRoutes: Routes = [
   // { path: '', component: AppComponent},
-  { path: '', redirectTo: '/map', pathMatch: 'full' },
-  { path: 'map', component: MapViewComponent},
+  { path: '', redirectTo: '/map/browse', pathMatch: 'full' },
+  { path: 'map', redirectTo: '/map/browse', pathMatch: 'full' },
   { path: 'stats', component: AppStatsComponent},
   { path: 'map/:issueId', component: MapViewComponent}
 ];

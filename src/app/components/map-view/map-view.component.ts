@@ -3,6 +3,8 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import 'rxjs/add/operator/switchMap';
 
+import * as mapboxgl from 'mapbox-gl';
+
 import { WindowRefService } from '../../services/window-ref.service';
 import { GeocodingService } from '../../services/geocoding.service';
 import { DataApiService } from "../../services/data-api.service";
@@ -74,7 +76,7 @@ export class MapViewComponent implements OnInit {
     this.route.params
     // map to Observable<Issue>
     .switchMap( params => {
-      if(params['issueId']) {
+      if(params['issueId'] && params['issueId']!="browse") {
         this.selectedIssueId = params['issueId'];
         return this.data.getIssueFromIID(params['issueId']);
       }
@@ -96,7 +98,11 @@ export class MapViewComponent implements OnInit {
         let location = new Location();
         location.latitude = issue.lat;
         location.longitude = issue.long;
-        this.mapService.setCurrentPosition(location.longitude, location.latitude);
+
+        let camera: mapboxgl.CameraOptions = {};
+        camera.center = [location.longitude, location.latitude];
+        this.mapService.map.flyTo(camera);
+        // this.mapService.setCurrentPosition(location.longitude, location.latitude);
         this.issuesLocationQuery = this.data.getIssuesAround(location, 5);
 
       },
@@ -110,7 +116,10 @@ export class MapViewComponent implements OnInit {
               this.issuesLocationQuery = null;
             }
             this.issuesLocationQuery = this.data.getIssuesAround(location, 5);
-            this.mapService.setCurrentPosition(location.longitude, location.latitude);
+            // this.mapService.setCurrentPosition(location.longitude, location.latitude);
+            let camera: mapboxgl.CameraOptions = {};
+            camera.center = [location.longitude, location.latitude];
+            this.mapService.map.flyTo(camera);
           },
           err => { console.log(err); },
           () => { }
