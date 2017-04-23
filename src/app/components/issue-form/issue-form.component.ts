@@ -75,7 +75,7 @@ export class IssueFormComponent implements OnInit {
     this.pService.start();
 
     this.issue.solved = false;
-    this.issue.date_created = new Date().toUTCString();
+    this.issue.date_created = new Date().getTime();
     this.issue.photos = this.photos.map(photo => photo.downloadURL);
     this.data.addIssue(this.issue)
       .then(() => this.successAdding())

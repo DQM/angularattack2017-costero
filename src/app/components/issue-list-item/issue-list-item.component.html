@@ -5,6 +5,7 @@
       <h2>{{ (issue)?.title }}</h2>
     </a>
     <p>{{ (issue)?.description }}</p>
+    <p>Upvotes: {{ (likes | async) }}</p>
   </span>
   <button kendoButton [icon]="'plus'"></button>
 </div>

@@ -13,8 +13,8 @@ export class Issue {
   public city: string = '';
   public state: string = '';
   public country: string = '';
-  public date_created: string = '';
-  public date_solved: string = '';
+  public date_created: number = 0;
+  public date_solved: number = 0;
   public likes_uids: string[] = [];
 
   constructor() {
