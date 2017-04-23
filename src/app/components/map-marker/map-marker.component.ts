@@ -60,7 +60,7 @@ export class MapMarkerComponent implements OnInit, OnDestroy {
 
     this.hasLiked = this.data.hasLiked(this.issue.$ref.key);
     this.likes = this.data.getTotalLikes(this.issue.$ref.key);
-    this.owned = this.issue.take(1).map(issue => this.auth.getUser().getValue().uid == issue.author);
+    this.owned = this.auth.getUser().map(user => user && user.uid == this.issue.author);
 
     this.issue.subscribe(
       iss => {
