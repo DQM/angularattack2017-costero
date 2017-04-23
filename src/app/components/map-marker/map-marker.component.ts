@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, OnChanges, Input, ViewChild, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Observable, BehaviorSubject } from 'rxjs';
 
@@ -16,10 +16,11 @@ import { MapMouseEvent, Popup, Marker, LngLat } from 'mapbox-gl';
   templateUrl: './map-marker.component.html',
   styleUrls: ['./map-marker.component.scss']
 })
-export class MapMarkerComponent implements OnInit {
+export class MapMarkerComponent implements OnInit, OnDestroy {
   @ViewChild('markerEl') el: ElementRef;
   @ViewChild('markerPopupEl') popupEl: ElementRef;
   @Input('issue') issue: any;
+  @Input('selected') selected: any;
 
   private marker: any;
   private popup: any = null;
@@ -47,17 +48,15 @@ export class MapMarkerComponent implements OnInit {
       // .setPopup(this.popup)
       .addTo(this.mapService.map);
 
-    this.popup = new Popup()
+    this.popup = new Popup({
+      closeButton: false
+    })
       .setDOMContent(this.popupEl.nativeElement)
-      .setLngLat(this.marker.getLngLat())
-      .on('close', () => {
-        this.router.navigate(['/map']);
-        // this.popup.remove();
-      });
+      .setLngLat(this.marker.getLngLat());
 
-    // if (this.startOpen) {
-    //   this.popup.addTo(this.mapService.map);
-    // }
+    if (this.selected) {
+      this.popup.addTo(this.mapService.map);
+    }
 
     this.hasLiked = this.data.hasLiked(this.issue.$ref.key);
     this.likes = this.data.getTotalLikes(this.issue.$ref.key);
@@ -77,6 +76,13 @@ export class MapMarkerComponent implements OnInit {
       }
     );
 
+  }
+
+  ngOnDestroy() {
+    if(this.popup) {
+      this.popup.remove();
+      this.popup = null;
+    }
   }
 
   public isOpen() {
@@ -100,6 +106,10 @@ export class MapMarkerComponent implements OnInit {
         this.router.navigate(['/map', iss.iid]);
       }
     );
+  }
+
+  close() {
+    this.router.navigate(['/map']);
   }
 
 }
