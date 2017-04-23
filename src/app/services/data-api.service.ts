@@ -10,6 +10,7 @@ import { UUID } from 'angular2-uuid';
 import { WindowRefService } from './window-ref.service';
 import { Issue } from "../core/issue";
 import { Location } from "../core/location.class";
+import { Author } from "../core/author";
 
 @Injectable()
 export class DataApiService {
@@ -79,6 +80,15 @@ export class DataApiService {
 
     return new IssuesLocationQuery(new this.window.GeoFire(this.locations.$ref), this.db, location, radius);
 
+  }
+
+  public getAuthor(authorId: string): BehaviorSubject<Author> {
+
+    let bhs = new BehaviorSubject(null);
+
+    this.db.object('/users/'+authorId).subscribe(bhs);
+
+    return bhs;
   }
 
 }
