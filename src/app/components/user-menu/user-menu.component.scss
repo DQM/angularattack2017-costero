@@ -7,8 +7,7 @@ nav * {
 
 .grid {
   margin: 0 auto;
-  max-width: 1200px;
-  width: 100%;
+  padding: .75rem 1rem;
 }
 .row {
   width: 100%;
@@ -31,6 +30,10 @@ div:nth-child(3) {
 .menu,
 .k-button {
   height: 100%;
+}
+
+.k-dropdown-button {
+  background-color: transparent;
 }
 
 img {

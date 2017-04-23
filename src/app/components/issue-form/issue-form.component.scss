@@ -10,7 +10,7 @@
   width: 300px;
   top: 0;
   right: 0;
-  bottom: 0;
+  bottom: 54px;
   z-index: 200;
   // padding: 0;
   overflow-y: auto;
@@ -59,8 +59,12 @@ textarea {
 }
 
 .k-form {
-  padding: 1rem;
-  margin-bottom: 40px;
+  padding: 0 1rem;
+  // margin-bottom: 100px;
+
+  fieldset {
+    margin: 2rem 0 3rem 0;
+  }
 
   fieldset:nth-child(2) input {
     background-color: #e6e6e6;

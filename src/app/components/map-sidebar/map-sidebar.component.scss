@@ -3,8 +3,9 @@
   width: 300px;
   top: 0;
   right: 0;
-  bottom: 0;
+  bottom: 54px;
   z-index: 200;
+  overflow-x: hidden;
   overflow-y: auto;
 
   &-add {
@@ -34,3 +35,13 @@
     display: none !important;
   }
 }
+
+.issues {
+  &:not(:last-child) {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  }
+}
+
+// &:last-of-type {
+//   border-bottom: none;
+// }
