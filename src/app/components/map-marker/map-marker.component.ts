@@ -65,6 +65,12 @@ export class MapMarkerComponent implements OnInit, OnDestroy {
     this.issue.subscribe(
       iss => {
 
+        if(!iss || !iss.long || !iss.lat) {
+          if(this.popup) this.popup.remove();
+          this.marker.remove();
+          return;
+        }
+
         this.author = this.data.getAuthor(iss.author);
 
         this.marker.setLngLat([iss.long, iss.lat]);

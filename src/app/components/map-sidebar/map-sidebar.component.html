@@ -7,10 +7,19 @@
 
       </ng-template>
     </kendo-tabstrip-tab>
+
     <kendo-tabstrip-tab [title]="'Top Issues'">
       <ng-template kendoTabContent>
 
                 <app-issue-list-item [issue]="issue" *ngFor="let issue of topIssues | async"></app-issue-list-item>
+
+      </ng-template>
+    </kendo-tabstrip-tab>
+
+    <kendo-tabstrip-tab [title]="'My Issues'">
+      <ng-template kendoTabContent>
+
+                <app-issue-list-item [issue]="issue" [showOwnerActions]="true" *ngFor="let issue of myIssues | async"></app-issue-list-item>
 
       </ng-template>
     </kendo-tabstrip-tab>
