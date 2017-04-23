@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import 'rxjs/add/operator/switchMap';
 
+import { WindowRefService } from '../../services/window-ref.service';
 import { GeocodingService } from '../../services/geocoding.service';
 import { DataApiService } from "../../services/data-api.service";
 import { MapService } from '../../services/map.service';
@@ -25,13 +26,18 @@ export class MapViewComponent implements OnInit {
 
   private selectedIssueId: string = null;
 
+  private window: any;
+
   constructor(
     private mapService: MapService,
     private geocoder: GeocodingService,
     private data: DataApiService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    windowRef: WindowRefService
   ) {
+
+    this.window = windowRef.nativeWindow;
 
   }
 
@@ -62,6 +68,9 @@ export class MapViewComponent implements OnInit {
           }, error => console.error(error));
     });
 
+    this.mapService.map.on('moveend', this.updateQuery.bind(this, 'moveend'));
+    // this.mapService.map.on('zoomend', this.updateQuery.bind(this, 'zoomend'));
+
     this.route.params
     // map to Observable<Issue>
     .switchMap( params => {
@@ -75,6 +84,10 @@ export class MapViewComponent implements OnInit {
     .subscribe(
       issue => {
 
+        if (this.issuesLocationQuery) {
+          this.issuesLocationQuery.stop();
+          this.issuesLocationQuery = null;
+        }
         let location = new Location();
         location.latitude = issue.lat;
         location.longitude = issue.long;
@@ -87,6 +100,10 @@ export class MapViewComponent implements OnInit {
 
         this.geocoder.getCurrentLocation().subscribe(
           location => {
+            if (this.issuesLocationQuery) {
+              this.issuesLocationQuery.stop();
+              this.issuesLocationQuery = null;
+            }
             this.issuesLocationQuery = this.data.getIssuesAround(location, 5);
             this.mapService.setCurrentPosition(location.longitude, location.latitude);
           },
@@ -96,6 +113,36 @@ export class MapViewComponent implements OnInit {
 
       }
     );
+
+  }
+
+  getIssues() {
+    if(!this.issuesLocationQuery) return Observable.of([]);
+    return this.issuesLocationQuery.issues;
+  }
+
+  updateQuery(from) {
+
+    console.log(from);
+
+    let bounds = this.mapService.map.getBounds();
+    let center = bounds.getCenter();
+    let south = bounds.getSouth();
+
+    let radius = this.window.GeoFire.distance(
+      [center.lat, center.lng],
+      [south, center.lng]
+    );
+
+    let location = new Location();
+    location.latitude = center.lat;
+    location.longitude = center.lng;
+
+    if(this.issuesLocationQuery) {
+      this.issuesLocationQuery.radius = radius;
+      this.issuesLocationQuery.location = location;
+      this.issuesLocationQuery.updateQuery();
+    }
 
   }
 

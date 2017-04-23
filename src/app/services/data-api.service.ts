@@ -225,7 +225,7 @@ export class IssuesLocationQuery {
 
   private _running: boolean;
 
-  private _geoQuery: any;
+  private _geoQuery: any = null;
 
   private _bhs: BehaviorSubject<Issue[]>;
 
@@ -250,20 +250,25 @@ export class IssuesLocationQuery {
     this._geoQuery.cancel();
   }
 
-  private updateQuery() {
-
-    if (this._geoQuery) {
-      this._geoQuery.cancel();
-    }
+  public updateQuery() {
 
     this._resultMap = [];
     this._bhs.next(Object.keys(this._resultMap).map(vk => this._resultMap[vk]));
 
     // Create a GeoQuery centered at 'location'
-    this._geoQuery = this.geoFire.query({
-      center: [this._location.latitude, this._location.longitude],
-      radius: this._radius
-    });
+    if (!this._geoQuery || !this._running) {
+      this._geoQuery = this.geoFire.query({
+        center: [this._location.latitude, this._location.longitude],
+        radius: this._radius
+      });
+    } else {
+
+      this._geoQuery.updateCriteria({
+        center: [this._location.latitude, this._location.longitude],
+        radius: this._radius
+      });
+
+    }
 
     this._running = true;
 
@@ -296,7 +301,6 @@ export class IssuesLocationQuery {
 
 	public set radius(value: number ) {
 		this._radius = value;
-    this.updateQuery();
 	}
 
 
@@ -306,7 +310,6 @@ export class IssuesLocationQuery {
 
 	public set location(value: Location) {
 		this._location = value;
-    this.updateQuery();
 	}
 
 }
