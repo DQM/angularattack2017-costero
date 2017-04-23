@@ -25,7 +25,6 @@ export class IssueFormComponent implements OnInit {
 
   private loadingImages: boolean = false;
   private submitAfterLoadingImages: boolean = false;
-  private showWaitingPopup: boolean = false;
 
   private photos: any[] = [];
 
@@ -75,21 +74,18 @@ export class IssueFormComponent implements OnInit {
 
   }
 
-  clearWaitingPopup() {
-    this.showWaitingPopup = false;
-  }
-
-  checkWaitingPopup() {
-    if(this.loadingImages) {
-      this.showWaitingPopup = true;
-    }
-  }
-
   submitForm() {
     if(this.loadingImages) {
       this.submitAfterLoadingImages = true;
+      this.failAdding('Images are still being processed...\nYou submission will be done in a second :)');
       return;
     }
+
+    if(this.issue.title.trim().length==0) {
+      this.failAdding('Please provide a valid title');
+      return;
+    }
+
     this.pService.start();
 
     this.issue.solved = false;
@@ -109,7 +105,10 @@ export class IssueFormComponent implements OnInit {
 
   failAdding(err) {
     console.log(err);
-    this.error = "Error, try again.";
+    this.error = err;
+    setTimeout(() => {
+      this.error = '';
+    }, 5000);
   }
 
   closeDialog() {

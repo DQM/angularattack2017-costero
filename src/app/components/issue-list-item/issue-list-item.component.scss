@@ -13,6 +13,9 @@
       font-weight: normal;
       line-height: 100%;
       margin: 0 0 4px 0;
+      word-break: break-all;
+      word-wrap: break-word;
+      max-width: 270px;
     }
 
     p {
@@ -33,7 +36,9 @@
     &-description {
       float: left;
       display: inline;
-      width: 270px;
+      word-break: break-all;
+      word-wrap: break-word;
+      max-width: 270px;
     }
 
     &-button {
