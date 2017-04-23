@@ -22,11 +22,19 @@ export class AppComponent {
 
   constructor(private mapService: MapService, private data: DataApiService, private geocoding: GeocodingService, private auth: AuthService) {
 
-    let issue = new Issue();
-    issue.title = 'geo';
-    issue.lat = -7.140095;
-    issue.long = -34.851654;
-    // data.addIssue(issue);
+    this.auth.getUser().subscribe(
+      user => {
+        if(!user) return;
+
+        let issue = new Issue();
+        issue.title = 'geo of ' + user.displayName;
+        issue.lat = -7.140000 + ( (Math.random()%2 == 0 ? 1 : -1) * (Math.random() % 10) / 100 );
+        issue.long = -34.851654 + ((Math.random() % 2 == 0 ? 1 : -1) * (Math.random() % 10) / 100);
+        issue.author = user.uid;
+        // data.addIssue(issue);
+
+      }
+    );
 
     // this.issuesLocationQuery = this.data.getIssuesAround([-8.0431353, -35.0062387], 5);
 

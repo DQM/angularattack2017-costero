@@ -14,7 +14,7 @@
   </p>
   <p>Title: {{ issue.title }}</p>
   <p>Description: {{ issue.description }}</p>
-  <p>Author: {{ issue.author }}</p>
+  <p>Author: {{ (author | async)?.displayName }}</p>
   <p>Likes: {{ issue.likes }}</p>
   <p>Created: {{ issue.date_created }}</p>
 

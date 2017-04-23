@@ -1,10 +1,12 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 
+import { DataApiService } from '../../services/data-api.service';
 import { GeocodingService } from '../../services/geocoding.service';
 import { MapService } from '../../services/map.service';
 import { Location } from '../../core/location.class';
 import { Issue } from '../../core/issue';
+import { Author } from '../../core/author';
 import { MapMouseEvent, Popup, Marker, LngLat } from 'mapbox-gl';
 
 @Component({
@@ -21,9 +23,10 @@ export class MapMarkerComponent implements OnInit {
   private marker: any;
   private popup: any;
   private issue: Issue;
+  private author: Observable<Author>;
   private popupVisible: boolean = false;
 
-  constructor(private mapService: MapService, private geocoder: GeocodingService) {
+  constructor(private mapService: MapService, private geocoder: GeocodingService, private data: DataApiService) {
     this.editing = false;
 
   }
@@ -42,6 +45,7 @@ export class MapMarkerComponent implements OnInit {
     this.issueObs.subscribe(
       iss => {
         this.issue = iss;
+        this.author = this.data.getAuthor(this.issue.author);
         this.marker.setLngLat([iss.long, iss.lat]);
       }
     );
