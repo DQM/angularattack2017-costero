@@ -3,7 +3,6 @@
   <kendo-tabstrip>
     <kendo-tabstrip-tab [title]="'Recent Issues'" [selected]="true">
       <ng-template kendoTabContent>
-
                 <app-issue-list-item [issue]="issue" *ngFor="let issue of recentIssues | async"></app-issue-list-item>
 
       </ng-template>
