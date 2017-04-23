@@ -2,8 +2,11 @@
   &-item {
     display: inline-block;
     width: 100%;
-    margin: 16px 0;
-    border-bottom: 2px solid rgba(0, 0, 0, 0.125);
+    padding: 16px 0;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    }
 
     h2 {
       font-size: 1.3em;
