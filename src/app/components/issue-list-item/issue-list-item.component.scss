@@ -33,20 +33,17 @@
     &-description {
       float: left;
       display: inline;
-      width: 170px;
+      width: 270px;
     }
 
     &-button {
       float: right;
       padding: 6px 10px !important;
+
+      &.k-state-active {
+        background-color: #e5f1fb;
+        border-color: #0275d8;
+      }
     }
   }
-}
-
-.k-panelbar>.k-item>.k-link {
-  display: none;
-}
-
-.k-button[selected] {
-  background-color: #ddd;
 }
