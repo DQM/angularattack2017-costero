@@ -21,6 +21,7 @@
 .cancel-btn {
   position: fixed;
   width: 150px;
+  padding: 16px;
   bottom: 0;
   right: 150px;
   z-index: 300;
@@ -42,8 +43,4 @@ kendo {
   &-link {
     display: none !important;
   }
-
-  // &-content.k-state-active {
-  //   border: none;
-  // }
 }

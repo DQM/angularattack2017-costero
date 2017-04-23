@@ -7,5 +7,5 @@
     </a>
     <p>{{ (issue)?.description }}</p>
   </div>
-  <button class="issue-item-button" kendoButton [icon]="'plus'" (click)="toggleLike()" [selected]="(hasLiked | async)"></button>
+  <button class="issue-item-button" kendoButton (click)="toggleLike()" [selected]="(hasLiked | async)">&#8679;</button>
 </div>
