@@ -1,12 +1,18 @@
 .marker {
   cursor: pointer;
+
+  span {
+    font-size: 32px;
+    color: #0275d8;
+  }
+
 }
 
 .marker-popup {
   position: absolute;
   left: 0;
-
   min-width: 200px;
+  font-size: 18px;
 
   img {
     max-width: 200px;

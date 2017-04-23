@@ -29,7 +29,7 @@ export class IssueListItemComponent implements OnInit {
     this.hasLiked = this.data.hasLiked((<any>this.issue).$key);
     this.likes = this.data.getTotalLikes((<any> this.issue).$key);
 
-    this.owned = this.auth.getUser().map(user => user.uid == this.issue.author);
+    this.owned = this.auth.getUser().map(user => user && user.uid == this.issue.author);
   }
 
   toggleLike() {

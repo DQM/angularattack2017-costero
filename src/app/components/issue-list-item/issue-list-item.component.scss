@@ -40,6 +40,10 @@
       float: right;
       padding: 6px 10px !important;
 
+      .k-icon {
+        font-size: 24px;
+      }
+
       &.k-state-active {
         background-color: #e5f1fb;
         border-color: #0275d8;
