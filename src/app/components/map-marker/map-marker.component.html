@@ -6,3 +6,23 @@
   </button>-->
 
 </div>
+
+<div #markerPopupEl class="marker-popup">
+
+  <p>
+    <img [src]="issue.photos[0]" alt="">
+  </p>
+  <p>Title: {{ issue.title }}</p>
+  <p>Description: {{ issue.description }}</p>
+  <p>Author: {{ issue.author }}</p>
+  <p>Likes: {{ issue.likes }}</p>
+  <p>Created: {{ issue.date_created }}</p>
+
+  <p>
+    Solved:
+    <span *ngIf="issue.solved">Yes! 😍</span>
+    <span *ngIf="!issue.solved && !owned()">No 😡</span>
+    <button kendoButton *ngIf="!issue.solved && owned()" (click)="solve()" [primary]="true">Mark as solved!</button>
+  </p>
+
+</div>

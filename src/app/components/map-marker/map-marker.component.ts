@@ -14,10 +14,14 @@ import { MapMouseEvent, Popup, Marker, LngLat } from 'mapbox-gl';
 })
 export class MapMarkerComponent implements OnInit {
   @ViewChild('markerEl') el: ElementRef;
-  @Input() issue: any;
+  @ViewChild('markerPopupEl') popupEl: ElementRef;
+  @Input('issue') issueObs: any;
 
   private editing: boolean;
   private marker: any;
+  private popup: any;
+  private issue: Issue;
+  private popupVisible: boolean = false;
 
   constructor(private mapService: MapService, private geocoder: GeocodingService) {
     this.editing = false;
@@ -26,24 +30,34 @@ export class MapMarkerComponent implements OnInit {
 
   ngOnInit() {
 
+    this.popup = new Popup()
+      // .setHTML('Title: asdasjjjjjjjjjjjjjjjj j asdla ksjdlaks jdkalsjd lkajdklasjd lkajd lkajdlkajdl');
+      .setDOMContent(this.popupEl.nativeElement);
+
     this.marker = new Marker(this.el.nativeElement)
       .setLngLat([30.5, 50.5])
+      .setPopup(this.popup)
       .addTo(this.mapService.map);
 
-    this.issue.subscribe(
+    this.issueObs.subscribe(
       iss => {
+        this.issue = iss;
         this.marker.setLngLat([iss.long, iss.lat]);
       }
     );
 
     this.mapService.map.on('click', (e: MapMouseEvent) => {
       if (this.editing) {
-        this.geocoder.buildLocation(e.lngLat)
+        let latlng: any = {};
+        latlng.longitude = e.lngLat.lng;
+        latlng.latitude = e.lngLat.lat;
+
+        this.geocoder.buildLocation(latlng)
           .subscribe(location => {
-            // let marker = new Popup()
-            //   .setHTML(location.address.formatted)
-            //   .setLngLat(e.lngLat)
-            //   .addTo(this.mapService.map);
+            let marker = new Popup()
+              .setHTML(location.address.formatted)
+              .setLngLat(e.lngLat)
+              .addTo(this.mapService.map);
           }, error => console.error(error));
       }
     });
@@ -52,4 +66,13 @@ export class MapMarkerComponent implements OnInit {
   toggleEditing() {
     this.editing = !this.editing;
   }
+
+  owned() {
+    return false;
+  }
+
+  solved() {
+    // TODO
+  }
+
 }
