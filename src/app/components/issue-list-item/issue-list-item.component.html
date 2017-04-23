@@ -7,7 +7,7 @@
     </a>
     <p>{{ (issue)?.description }}</p>
   </div>
-  <button class="issue-item-button" kendoButton (click)="toggleLike()" [selected]="(hasLiked | async)" [icon]="'arrow-up'"></button>
-  <button class="issue-item-button" kendoButton (click)="toggleSolve()" [selected]="issue?.solved" *ngIf="showOwnerActions && (owned | async)" [icon]="'check-outline'"></button>
-  <button class="issue-item-button" kendoButton (click)="delete()" *ngIf="showOwnerActions && (owned | async)" [icon]="'trash'"></button>
+  <button class="issue-item-button" kendoButton (click)="toggleLike()" [selected]="(hasLiked | async)" [icon]="'arrow-up'" title="Vote up!"></button>
+  <button class="issue-item-button" kendoButton (click)="toggleSolve()" [selected]="issue?.solved" *ngIf="showOwnerActions && (owned | async)" [icon]="'check-outline'" title="Mark as solved"></button>
+  <button class="issue-item-button" kendoButton (click)="delete()" *ngIf="showOwnerActions && (owned | async)" [icon]="'trash'" title="Delete issue"></button>
 </div>
