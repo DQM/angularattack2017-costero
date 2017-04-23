@@ -1,13 +1,13 @@
 <div class="map-sidebar" *ngIf="!addReport">
 
   <kendo-tabstrip>
-    <kendo-tabstrip-tab [title]="'Recent'" [selected]="true">
+    <kendo-tabstrip-tab [title]="'Recent Issues'" [selected]="true">
       <ng-template kendoTabContent>
         <kendo-panelbar>
             <kendo-panelbar-item [title]="'Issues'" expanded="true">
                 <ng-template kendoPanelBarContent>
                     <div>
-                        <div *ngFor="let issue of recentIssues | async" class="teamMate">
+                        <div *ngFor="let issue of recentIssues | async">
                             <!--<img [src]="imageUrl('andrew')" alt="Andrew Fuller">-->
                             <span class="mate-info">
                               <h2>{{ (issue)?.title }}</h2>
@@ -21,11 +21,24 @@
         </kendo-panelbar>
       </ng-template>
     </kendo-tabstrip-tab>
-    <kendo-tabstrip-tab [title]="'Ranked'">
+    <kendo-tabstrip-tab [title]="'Top Issues'">
       <ng-template kendoTabContent>
-        <p>
-          Ranked list
-        </p>
+        <kendo-panelbar>
+            <kendo-panelbar-item [title]="'Issues'" expanded="true">
+                <ng-template kendoPanelBarContent>
+                    <div>
+                        <div *ngFor="let issue of topIssues | async">
+                            <!--<img [src]="imageUrl('andrew')" alt="Andrew Fuller">-->
+                            <span class="mate-info">
+                              <h2>{{ (issue)?.title }}</h2>
+                              <p>{{ (issue)?.description }}</p>
+                            </span>
+                            <button kendoButton [icon]="'plus'"></button>
+                        </div>
+                    </div>
+                </ng-template>
+            </kendo-panelbar-item>
+        </kendo-panelbar>
       </ng-template>
     </kendo-tabstrip-tab>
   </kendo-tabstrip>
