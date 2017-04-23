@@ -59,7 +59,8 @@ export class MapMarkerComponent implements OnInit {
           this.popup = null;
         }
 
-        this.author = this.data.getAuthor(this.issue.author);
+        this.author = this.data.getAuthor(iss.author);
+
         this.marker.setLngLat([iss.long, iss.lat]);
       }
     );

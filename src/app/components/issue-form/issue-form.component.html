@@ -4,13 +4,13 @@
     <!-- Title -->
     <label for="issue-title" class="k-form-field">
         <span>Title</span>
-        <input id="issue-title" type="text" class="k-textbox" [(ngModel)]="title" name="title">
+        <input id="issue-title" type="text" class="k-textbox" [(ngModel)]="issue.title" name="title">
     </label>
 
     <!-- Description -->
     <label for="issue-description" class="k-form-field">
         <span>Description</span>
-        <textarea id="issue-description" class="k-textarea" [(ngModel)]="description" name="description">{{ description }}</textarea>
+        <textarea id="issue-description" class="k-textarea" [(ngModel)]="issue.description" name="description">{{ description }}</textarea>
     </label>
 
     <!-- Photos -->
@@ -25,31 +25,31 @@
     <!-- City -->
     <label for="issue-city" class="k-form-field">
         <span>City</span>
-        <input id="issue-city" type="text" class="k-textbox" [value]="city" readonly>
+        <input id="issue-city" type="text" class="k-textbox" [value]="issue.city" readonly>
     </label>
 
     <!-- State -->
     <label for="issue-state" class="k-form-field">
         <span>State</span>
-        <input id="issue-state" type="text" class="k-textbox" [value]="state" readonly>
+        <input id="issue-state" type="text" class="k-textbox" [value]="issue.state" readonly>
     </label>
 
     <!-- Country -->
     <label for="issue-country" class="k-form-field">
         <span>Country</span>
-        <input id="issue-country" type="text" class="k-textbox" [value]="country" readonly>
+        <input id="issue-country" type="text" class="k-textbox" [value]="issue.country" readonly>
     </label>
 
     <!-- Latitude -->
     <label for="issue-latitude" class="k-form-field">
         <span>Latitude</span>
-        <input id="issue-latitude" type="text" class="k-textbox" [value]="latitude" readonly>
+        <input id="issue-latitude" type="text" class="k-textbox" [value]="issue.lat" readonly>
     </label>
 
     <!-- Longitude -->
     <label for="issue-longitude" class="k-form-field">
         <span>Longitude</span>
-        <input id="issue-longitude" type="text" class="k-textbox" [value]="longitude" readonly>
+        <input id="issue-longitude" type="text" class="k-textbox" [value]="issue.long" readonly>
     </label>
   </fieldset>
 
