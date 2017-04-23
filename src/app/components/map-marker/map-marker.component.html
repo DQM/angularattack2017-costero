@@ -11,7 +11,7 @@
   <p>Description: {{ (issue | async)?.description }}</p>
   <p>Author: {{ (author | async)?.displayName }}</p>
   <p>Likes: {{ likes | async }}</p>
-  <p>Created: {{ (issue | async)?.date_created }}</p>
+  <p>Created: {{ (issue | async)?.date_created | date:'fullDate' }}</p>
 
   <p>
     Solved:
