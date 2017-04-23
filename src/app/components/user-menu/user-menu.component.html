@@ -7,9 +7,7 @@
       <span class="title">{{ user.displayName }}</span>
     </div>
     <div>
-      <kendo-dropdownbutton [data]="options" (itemClick)="itemClick($event)">
-        <span class="k-icon k-i-more-vertical"></span>
-      </kendo-dropdownbutton>
+      <button title="Logout" kendoButton (click)="logout()"><span class="k-icon k-i-logout"></span></button>
     </div>
   </div>
 </nav>

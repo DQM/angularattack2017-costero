@@ -27,13 +27,15 @@ div:nth-child(3) {
   height: 100%;
 }
 
+div:nth-child(3) button {
+  background-color: #0275d8;
+  border: 0;
+  color: #fff;
+}
+
 .menu,
 .k-button {
   height: 100%;
-}
-
-.k-dropdown-button {
-  background-color: transparent;
 }
 
 img {
