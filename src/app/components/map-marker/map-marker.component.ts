@@ -1,11 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 
 import { GeocodingService } from '../../services/geocoding.service';
 import { MapService } from '../../services/map.service';
 import { Location } from '../../core/location.class';
 import { Issue } from '../../core/issue';
-import { MapMouseEvent, Popup, Marker } from 'mapbox-gl';
+import { MapMouseEvent, Popup, Marker, LngLat } from 'mapbox-gl';
 
 @Component({
   selector: 'app-map-marker',
@@ -13,6 +13,7 @@ import { MapMouseEvent, Popup, Marker } from 'mapbox-gl';
   styleUrls: ['./map-marker.component.scss']
 })
 export class MapMarkerComponent implements OnInit {
+  @ViewChild('markerEl') el: ElementRef;
   @Input() issue: any;
 
   private editing: boolean;
@@ -25,16 +26,13 @@ export class MapMarkerComponent implements OnInit {
 
   ngOnInit() {
 
-    this.marker = new Marker()
+    this.marker = new Marker(this.el.nativeElement)
       .setLngLat([30.5, 50.5])
       .addTo(this.mapService.map);
 
-    // console.log(this.marker);
-
     this.issue.subscribe(
       iss => {
-        console.log(iss);
-        this.marker.setLngLat([iss.lat, iss.long]);
+        this.marker.setLngLat([iss.long, iss.lat]);
       }
     );
 

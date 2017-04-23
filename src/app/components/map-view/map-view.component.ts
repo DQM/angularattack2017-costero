@@ -3,8 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { GeocodingService } from '../../services/geocoding.service';
 import { DataApiService } from "../../services/data-api.service";
 import { MapService } from '../../services/map.service';
-import { LngLat, Map } from 'mapbox-gl';
+import { LngLat, Map, MapMouseEvent, Popup, Marker } from 'mapbox-gl';
 import { MapMarkerComponent } from '../map-marker/map-marker.component';
+import { ILatLng } from '../../core/latLng.interface';
 
 @Component({
   selector: 'app-map-view',
@@ -12,6 +13,8 @@ import { MapMarkerComponent } from '../map-marker/map-marker.component';
   styleUrls: ['./map-view.component.scss']
 })
 export class MapViewComponent implements OnInit {
+
+  private editing: boolean;
 
   private issuesLocationQuery: any = null;
 
