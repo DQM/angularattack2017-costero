@@ -30,6 +30,7 @@ textarea {
 }
 
 .hidden-file-input {
+  display: none;
   position: absolute;
   left: 10000px;
 }
@@ -57,12 +58,13 @@ textarea {
   font-weight: bold;
 }
 
-fieldset {
-  margin-bottom: 60px;
-}
+.k-form {
+  padding: 1rem;
+  margin-bottom: 40px;
 
-fieldset:nth-child(2) input {
-  background-color: #e6e6e6;
+  fieldset:nth-child(2) input {
+    background-color: #e6e6e6;
+  }
 }
 
 .waiting-popup {
