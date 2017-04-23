@@ -71,6 +71,9 @@ export class DataApiService {
     // limit = limit || 50;
     return this.auth.getUser()
     .switchMap(user => {
+
+      if(!user) return Observable.of([]);
+
       return this.db.list('/issues', {
         query: {
           orderByChild: 'author',
@@ -192,13 +195,19 @@ export class DataApiService {
 
   public hasLiked(issueId: string): Observable<boolean> {
 
-    return this.db.list('/issues/' + issueId + '/likes_uids', {
-      query: {
-        orderByKey: true,
-        equalTo: this.auth.getUser().getValue().uid,
-        limitToFirst: 1
-      }
-    }).map(res => res.length > 0);
+    return this.auth.getUser()
+    .switchMap(user => {
+
+      if(!user) return Observable.of(false);
+
+      return this.db.list('/issues/' + issueId + '/likes_uids', {
+        query: {
+          orderByKey: true,
+          equalTo: user.uid,
+          limitToFirst: 1
+        }
+      }).map(res => res.length > 0);
+    });
 
   }
 
