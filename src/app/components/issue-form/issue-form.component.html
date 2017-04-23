@@ -16,7 +16,11 @@
     <!-- Photos -->
     <label for="issue-photo" class="k-form-field">
         <span>Photo</span>
-        <kendo-upload id="issue-photo"></kendo-upload>
+        <input #fileInput type="file" class="hidden-file-input" (change)="onSelectFile($event)" accept="image/*" multiple="true">
+        <button kendoButton (click)="openFileSelection()" primary="true">Select photo</button>
+        <p *ngFor="let photo of photos">
+          <span>x</span> {{ photo.name }}
+        </p>
     </label>
   </fieldset>
 

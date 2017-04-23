@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Observable, BehaviorSubject, Subject } from 'rxjs';
+
+import { NgProgressService } from "ng2-progressbar";
 
 import { MapService } from '../../services/map.service';
 import { GeocodingService } from '../../services/geocoding.service';
@@ -14,11 +16,21 @@ import { Issue } from '../../core/issue';
   styleUrls: ['./issue-form.component.scss']
 })
 export class IssueFormComponent implements OnInit {
+  @ViewChild('fileInput') fileInput: ElementRef;
+
+
   private issue: Issue;
   private added: boolean;
   private error: string;
 
-  constructor(private mapService: MapService, private geocoder: GeocodingService, private data: DataApiService) {
+  private photos: any[] = [];
+
+  constructor(
+    private mapService: MapService,
+    private geocoder: GeocodingService,
+    private data: DataApiService,
+    private pService: NgProgressService
+  ) {
 
     this.issue = new Issue();
 
@@ -55,6 +67,7 @@ export class IssueFormComponent implements OnInit {
   submitForm() {
     this.issue.solved = false;
     this.issue.date_created = new Date().toUTCString();
+    this.issue.photos = this.photos.map(photo => photo.downloadURL);
     this.data.addIssue(this.issue)
       .then(() => this.successAdding)
       .catch(err => this.failAdding());
@@ -71,6 +84,54 @@ export class IssueFormComponent implements OnInit {
 
   closeDialog() {
     this.added = false;
+  }
+
+  openFileSelection() {
+    this.fileInput.nativeElement.click();
+  }
+
+  onSelectFile(event) {
+    // max 5 files
+    let files: any[] = [];
+    for (let i = 0; i < 5 && i < event.srcElement.files.length;i++) {
+
+      files.push(event.srcElement.files[i]);
+
+    }
+
+    this.pService.start();
+
+    let percentile = 1/files.length;
+    let tasks = files.map(file => this.data.uploadPhoto(file, file.type) );
+
+    let promises = tasks.map(task => {
+
+      return new Promise<any>( (resolve, reject) => {
+
+        let lastProgress = 0;
+        task.task.subscribe(
+
+          state => {
+
+            let delta = state.progress * percentile - lastProgress;
+            this.pService.inc(delta);
+            lastProgress = state.progress * percentile;
+
+          },
+          err => reject,
+          () => resolve({
+            downloadURL: task.downloadURL,
+            name: task.file.name
+          })
+        );
+      });
+    });
+
+    Promise.all(promises).then((files) => {
+      this.pService.done();
+      this.photos = this.photos.concat(files);
+    }).catch(err => console.log);
+
   }
 
 }

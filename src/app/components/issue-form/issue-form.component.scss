@@ -27,3 +27,8 @@ textarea {
   box-sizing: border-box;
   resize: none;
 }
+
+.hidden-file-input {
+  position: absolute;
+  left: 10000px;
+}

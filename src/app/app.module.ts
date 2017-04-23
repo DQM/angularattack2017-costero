@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AngularFireModule } from 'angularfire2';
+import { NgProgressModule } from 'ng2-progressbar';
 
 // Services
 import { WindowRefService } from './services/window-ref.service';
@@ -80,7 +81,9 @@ export const firebaseConfig = {
     DialogModule,
     LayoutModule,
     InputsModule,
-    DropDownsModule
+    DropDownsModule,
+
+    NgProgressModule
   ],
   providers: [
     // Services

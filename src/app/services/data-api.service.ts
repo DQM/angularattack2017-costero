@@ -36,6 +36,10 @@ export class DataApiService {
 
   }
 
+  public getStorage() {
+    return this.storage;
+  }
+
   public getAllIssues(): FirebaseListObservable<any> {
 
     return this.issues;
@@ -96,7 +100,7 @@ export class DataApiService {
     let ref = this.storage.ref('/issues_photos');
     let uploadTask = ref.child(uuid + '-' + file.name).put(file);
 
-    return new UploadTask(uploadTask);
+    return new UploadTask(uploadTask, file);
 
   }
 
@@ -175,17 +179,20 @@ export class UploadTask {
 
   private _downloadUrl: string = '';
   private _completed: boolean = false;
+  private _file: any = null;
 
   private _task: Observable<any>;
 
-  constructor(private firebaseTask: any) {
+  constructor(private firebaseTask: any, file: any) {
+
+    this._file = file;
 
     this._task = Observable.create(observer => {
 
       this.firebaseTask.on('state_changed',
         // stream cb
         snapshot => {
-          let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          let progress = (snapshot.bytesTransferred / snapshot.totalBytes);
           let downloadURL = this.firebaseTask.snapshot.downloadURL;
           observer.next({
             progress: progress,
@@ -203,6 +210,11 @@ export class UploadTask {
     });
 
   }
+
+
+	public get file(): any  {
+		return this._file;
+	}
 
   public get downloadURL(): string {
     return this.firebaseTask.snapshot.downloadURL;

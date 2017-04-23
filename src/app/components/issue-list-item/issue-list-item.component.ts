@@ -11,7 +11,9 @@ export class IssueListItemComponent implements OnInit {
 
   @Input() issue: Issue;
 
-  constructor() { }
+  constructor() {
+
+  }
 
   ngOnInit() {
   }
