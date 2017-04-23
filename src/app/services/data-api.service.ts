@@ -67,6 +67,19 @@ export class DataApiService {
     }).map( arr => arr.sort( (a, b) => -(a.date_created - b.date_created) ) );
   }
 
+  public getMyIssues(limit?: number): Observable<Issue[]> {
+    // limit = limit || 50;
+    return this.auth.getUser()
+    .switchMap(user => {
+      return this.db.list('/issues', {
+        query: {
+          orderByChild: 'author',
+          equalTo: user.uid
+        }
+      })
+    });
+  }
+
   public addIssue(issue: Issue): Promise<any> {
 
     return new Promise( (resolve, reject) => {
@@ -193,6 +206,23 @@ export class DataApiService {
 
     return this.db.list('/issues/' + issueId + '/likes_uids')
     .map(res => res.length);
+
+  }
+
+  public solveIssue(issueId: string, solve?: boolean): Promise<any> {
+
+    return this.db.object('/issues/' + issueId).update({
+        solved: solve
+      });
+
+  }
+
+  public deleteIssue(issueId: string): Promise<any> {
+
+    return Promise.all([
+      this.db.object('/issues/' + issueId).remove(),
+      this.db.object('/locations/' + issueId).remove()
+    ]);
 
   }
 

@@ -3,6 +3,6 @@
 </div>
 
 <div #markerPopupEl class="marker-popup" [ngClass]="{open: true}">
-  <app-issue-list-item [issue]="(issue | async)"></app-issue-list-item>
+  <app-issue-list-item [issue]="(issue | async)" [showOwnerActions]="true"></app-issue-list-item>
   <button kendoButton (click)="close()" [primary]="true">Close</button>
 </div>
