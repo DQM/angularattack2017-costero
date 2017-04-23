@@ -5,8 +5,6 @@
   right: 0;
   bottom: 0;
   z-index: 200;
-  // color: #fff;
-  // background-color: #000;
   overflow-y: auto;
 }
 
@@ -16,6 +14,7 @@
   bottom: 0;
   right: 0;
   z-index: 10;
+  border-radius: 0;
 }
 
 .close-btn {
@@ -24,4 +23,8 @@
   right: 15px;
   z-index: 250;
   border: 0;
+}
+
+kendo-tabstrip {
+  margin-bottom: 30px;
 }
