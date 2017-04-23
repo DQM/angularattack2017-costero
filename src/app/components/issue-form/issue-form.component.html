@@ -1,69 +1,72 @@
-<form action="#" class="k-form">
-  <fieldset>
-    <legend>Description</legend>
-    <!-- Title -->
-    <label for="issue-title" class="k-form-field">
-        <span>Title</span>
-        <input id="issue-title" type="text" class="k-textbox" [(ngModel)]="issue.title" name="title">
-    </label>
+<div class="issue-form">
+  <app-user-menu></app-user-menu>
+  <form action="#" class="k-form">
+    <fieldset>
+      <legend>Description</legend>
+      <!-- Title -->
+      <label for="issue-title" class="k-form-field">
+          <span>Title</span>
+          <input id="issue-title" type="text" class="k-textbox" [(ngModel)]="issue.title" name="title">
+      </label>
 
-    <!-- Description -->
-    <label for="issue-description" class="k-form-field">
-        <span>Description</span>
-        <textarea id="issue-description" class="k-textarea" [(ngModel)]="issue.description" name="description">{{ description }}</textarea>
-    </label>
+      <!-- Description -->
+      <label for="issue-description" class="k-form-field">
+          <span>Description</span>
+          <textarea id="issue-description" class="k-textarea" [(ngModel)]="issue.description" name="description">{{ description }}</textarea>
+      </label>
 
-    <!-- Photos -->
-    <label for="issue-photo" class="k-form-field">
-        <span>Photo</span>
-        <input #fileInput type="file" class="hidden-file-input" (change)="onSelectFile($event)" accept="image/*" multiple="true">
-        <button kendoButton (click)="openFileSelection()" primary="true" [disabled]="loadingImages">Select photo</button>
-        <p *ngFor="let photo of photos">
-          <span>x</span> {{ photo.name }}
-        </p>
-    </label>
-  </fieldset>
+      <!-- Photos -->
+      <label for="issue-photo" class="k-form-field">
+          <span>Photo</span>
+          <input #fileInput type="file" class="hidden-file-input" (change)="onSelectFile($event)" accept="image/*" multiple="true">
+          <button kendoButton (click)="openFileSelection()" primary="true" [disabled]="loadingImages">Select photo</button>
+          <p *ngFor="let photo of photos">
+            <span>x</span> {{ photo.name }}
+          </p>
+      </label>
+    </fieldset>
 
-  <fieldset>
-    <legend>Localization</legend>
-    <!-- City -->
-    <label for="issue-city" class="k-form-field">
-        <span>City</span>
-        <input id="issue-city" type="text" class="k-textbox" [value]="issue.city" readonly>
-    </label>
+    <fieldset>
+      <legend>Localization</legend>
+      <!-- City -->
+      <label for="issue-city" class="k-form-field">
+          <span>City</span>
+          <input id="issue-city" type="text" class="k-textbox" [value]="issue.city" readonly>
+      </label>
 
-    <!-- State -->
-    <label for="issue-state" class="k-form-field">
-        <span>State</span>
-        <input id="issue-state" type="text" class="k-textbox" [value]="issue.state" readonly>
-    </label>
+      <!-- State -->
+      <label for="issue-state" class="k-form-field">
+          <span>State</span>
+          <input id="issue-state" type="text" class="k-textbox" [value]="issue.state" readonly>
+      </label>
 
-    <!-- Country -->
-    <label for="issue-country" class="k-form-field">
-        <span>Country</span>
-        <input id="issue-country" type="text" class="k-textbox" [value]="issue.country" readonly>
-    </label>
+      <!-- Country -->
+      <label for="issue-country" class="k-form-field">
+          <span>Country</span>
+          <input id="issue-country" type="text" class="k-textbox" [value]="issue.country" readonly>
+      </label>
 
-    <!-- Latitude -->
-    <label for="issue-latitude" class="k-form-field">
-        <span>Latitude</span>
-        <input id="issue-latitude" type="text" class="k-textbox" [value]="issue.lat" readonly>
-    </label>
+      <!-- Latitude -->
+      <label for="issue-latitude" class="k-form-field">
+          <span>Latitude</span>
+          <input id="issue-latitude" type="text" class="k-textbox" [value]="issue.lat" readonly>
+      </label>
 
-    <!-- Longitude -->
-    <label for="issue-longitude" class="k-form-field">
-        <span>Longitude</span>
-        <input id="issue-longitude" type="text" class="k-textbox" [value]="issue.long" readonly>
-    </label>
-  </fieldset>
+      <!-- Longitude -->
+      <label for="issue-longitude" class="k-form-field">
+          <span>Longitude</span>
+          <input id="issue-longitude" type="text" class="k-textbox" [value]="issue.long" readonly>
+      </label>
+    </fieldset>
 
-  <span *ngIf="error" class="error">{{ error }}</span>
-  <button #submitButton kendoButton class="confirm-btn" (click)="submitForm()" (mouseenter)="checkWaitingPopup()" (mouseleave)="clearWaitingPopup()" primary="true">Confirm</button>
-  <kendo-popup [popupClass]="'waiting-popup'" [anchor]="submitButton" (anchorViewportLeave)="clearWaitingPopup()" *ngIf="showWaitingPopup">
-    <p>Images are still being processed...</p>
-    <p>You submission will be done in a second :)</p>
-  </kendo-popup>
-</form>
+    <span *ngIf="error" class="error">{{ error }}</span>
+    <button #submitButton kendoButton class="confirm-btn" (click)="submitForm()" (mouseenter)="checkWaitingPopup()" (mouseleave)="clearWaitingPopup()" primary="true">Confirm</button>
+    <kendo-popup [popupClass]="'waiting-popup'" [anchor]="submitButton" (anchorViewportLeave)="clearWaitingPopup()" *ngIf="showWaitingPopup">
+      <p>Images are still being processed...</p>
+      <p>You submission will be done in a second :)</p>
+    </kendo-popup>
+  </form>
+</div>
 
 <kendo-dialog *ngIf="added" (close)="closeDialog()">
   <p>Successful adding the issue! Thanks for contributing.</p>

@@ -1,6 +1,6 @@
-<div class="map-sidebar">
+<div class="map-sidebar" *ngIf="!addReport">
   <app-user-menu></app-user-menu>
-  <kendo-tabstrip *ngIf="!addReport">
+  <kendo-tabstrip>
     <kendo-tabstrip-tab [title]="'Recent Issues'" [selected]="true">
       <ng-template kendoTabContent>
         <kendo-panelbar>
@@ -35,6 +35,5 @@
 
 <div *ngIf="addReport">
   <app-issue-form></app-issue-form>
-  <button kendoButton class="close-btn" (click)="closeDialog()"><span class="k-icon k-i-close"></span></button>
+  <button kendoButton class="cancel-btn" (click)="closeDialog()">Cancel</button>
 </div>
-
