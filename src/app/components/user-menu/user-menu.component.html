@@ -14,6 +14,6 @@
   </div>
 </nav>
 
-<nav *ngIf="!user">
-  <button kendoButton (click)="login()">Login</button>
+<nav *ngIf="!user" class="login">
+  <button kendoButton (click)="login()" primary="true"><span class="k-icon k-i-facebook"></span>Facebook Login</button>
 </nav>
