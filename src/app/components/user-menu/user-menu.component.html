@@ -1,0 +1,19 @@
+<nav *ngIf="user" class="grid">
+  <div class="row">
+    <div>
+      <img src="{{ user.photoURL }}" alt="{{ user.displayName }}">
+    </div>
+    <div>
+      <p>{{ user.displayName }}</p>
+    </div>
+    <div>
+      <kendo-dropdownbutton [data]="options" (itemClick)="itemClick($event)">
+        <span class="k-icon k-i-more-vertical"></span>
+      </kendo-dropdownbutton>
+    </div>
+  </div>
+</nav>
+
+<nav *ngIf="!user">
+  <button kendoButton (click)="login()">Login</button>
+</nav>

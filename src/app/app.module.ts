@@ -36,6 +36,7 @@ import { PopupModule } from '@progress/kendo-angular-popup';
 // Router
 import { RouterModule, Routes } from '@angular/router';
 import { IssueListItemComponent } from './components/issue-list-item/issue-list-item.component';
+import { UserMenuComponent } from './components/user-menu/user-menu.component';
 
 const appRoutes: Routes = [
   // { path: '', component: AppComponent},
@@ -64,7 +65,8 @@ export const firebaseConfig = {
     AppStatsComponent,
     MapMarkerComponent,
     MapSidebarComponent,
-    IssueListItemComponent
+    IssueListItemComponent,
+    UserMenuComponent
   ],
   imports: [
     // Router

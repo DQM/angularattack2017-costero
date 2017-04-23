@@ -3,14 +3,6 @@
 </div>
 
 <div #markerPopupEl class="marker-popup" [ngClass]="{open: isOpen()}">
-
-  <kendo-scrollview *ngIf="(issue | async)?.photos" [data]="(issue | async)?.photos" [width]="width" [height]="height" [arrows]="true" [pageable]="true">
-    <ng-template let-item="photo">
-      <h2 class="demo-title">teste</h2>
-      <img src='{{ photo }}' alt='teste' [ngStyle]="{minWidth: width}" draggable="false" />
-    </ng-template>
-  </kendo-scrollview>
-
   <p>
     <img [src]="(issue | async)?.photos[0]" *ngIf="(issue | async)?.photos && (issue | async)?.photos.length>0" alt="">
   </p>

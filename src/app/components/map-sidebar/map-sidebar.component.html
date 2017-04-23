@@ -1,6 +1,6 @@
-<div class="map-sidebar" *ngIf="!addReport">
-
-  <kendo-tabstrip>
+<div class="map-sidebar">
+  <app-user-menu></app-user-menu>
+  <kendo-tabstrip *ngIf="!addReport">
     <kendo-tabstrip-tab [title]="'Recent Issues'" [selected]="true">
       <ng-template kendoTabContent>
         <kendo-panelbar>
