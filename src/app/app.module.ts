@@ -32,6 +32,7 @@ import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 
 // Router
 import { RouterModule, Routes } from '@angular/router';
+import { IssueListItemComponent } from './components/issue-list-item/issue-list-item.component';
 
 const appRoutes: Routes = [
   // { path: '', component: AppComponent},
@@ -59,7 +60,8 @@ export const firebaseConfig = {
     AppHomeComponent,
     AppStatsComponent,
     MapMarkerComponent,
-    MapSidebarComponent
+    MapSidebarComponent,
+    IssueListItemComponent
   ],
   imports: [
     // Router

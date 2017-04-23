@@ -45,7 +45,6 @@ export class IssueFormComponent implements OnInit {
         this.issue.city = location.address.city;
         this.issue.state = location.address.state;
         this.issue.country = location.address.country;
-        console.log(location);
       }, error => console.error(error));
 
     this.issue.lat = center.lat;

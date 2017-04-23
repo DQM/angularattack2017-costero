@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Issue } from '../../core/issue';
 import { DataApiService } from '../../services/data-api.service';

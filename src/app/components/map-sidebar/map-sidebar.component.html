@@ -7,14 +7,7 @@
             <kendo-panelbar-item [title]="'Issues'" expanded="true" selected="true">
                 <ng-template kendoPanelBarContent>
                     <div>
-                        <div *ngFor="let issue of recentIssues | async">
-                            <!--<img [src]="imageUrl('andrew')" alt="Andrew Fuller">-->
-                            <span class="mate-info">
-                              <h2>{{ (issue)?.title }}</h2>
-                              <p>{{ (issue)?.description }}</p>
-                            </span>
-                            <button kendoButton [icon]="'plus'"></button>
-                        </div>
+                      <app-issue-list-item [issue]="issue" *ngFor="let issue of recentIssues | async"></app-issue-list-item>
                     </div>
                 </ng-template>
             </kendo-panelbar-item>
@@ -27,14 +20,7 @@
             <kendo-panelbar-item [title]="'Issues'" expanded="true" selected="true">
                 <ng-template kendoPanelBarContent>
                     <div>
-                        <div *ngFor="let issue of topIssues | async">
-                            <!--<img [src]="imageUrl('andrew')" alt="Andrew Fuller">-->
-                            <span class="mate-info">
-                              <h2>{{ (issue)?.title }}</h2>
-                              <p>{{ (issue)?.description }}</p>
-                            </span>
-                            <button kendoButton [icon]="'plus'"></button>
-                        </div>
+                      <app-issue-list-item [issue]="issue" *ngFor="let issue of topIssues | async"></app-issue-list-item>
                     </div>
                 </ng-template>
             </kendo-panelbar-item>

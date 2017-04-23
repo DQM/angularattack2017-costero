@@ -1,0 +1,10 @@
+<div>
+  <!--<img [src]="imageUrl('andrew')" alt="Andrew Fuller">-->
+  <span class="mate-info">
+    <a [routerLink]="['/map', issue?.iid]">
+      <h2>{{ (issue)?.title }}</h2>
+    </a>
+    <p>{{ (issue)?.description }}</p>
+  </span>
+  <button kendoButton [icon]="'plus'"></button>
+</div>
