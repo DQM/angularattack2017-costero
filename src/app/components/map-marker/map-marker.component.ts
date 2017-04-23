@@ -21,7 +21,6 @@ export class MapMarkerComponent implements OnInit {
   @Input('issue') issue: any;
   @Input('startOpen') startOpen: boolean = false;
 
-  private editing: boolean;
   private marker: any;
   private popup: any;
   private author: Observable<Author>;
@@ -31,10 +30,7 @@ export class MapMarkerComponent implements OnInit {
   private likes: Observable<number> = Observable.of(0);
   private owned: Observable<boolean> = Observable.of(false);
 
-  constructor(private mapService: MapService, private geocoder: GeocodingService, private data: DataApiService, private auth: AuthService) {
-    this.editing = false;
-
-  }
+  constructor(private mapService: MapService, private geocoder: GeocodingService, private data: DataApiService, private auth: AuthService) { }
 
   ngOnInit() {
 
@@ -56,26 +52,6 @@ export class MapMarkerComponent implements OnInit {
         this.marker.setLngLat([iss.long, iss.lat]);
       }
     );
-
-    this.mapService.map.on('click', (e: MapMouseEvent) => {
-      if (!this.editing) {
-        let latlng: any = {};
-        latlng.longitude = e.lngLat.lng;
-        latlng.latitude = e.lngLat.lat;
-
-        this.geocoder.buildLocation(latlng)
-          .subscribe(location => {
-            let marker = new Popup()
-              .setHTML(location.address.formatted)
-              .setLngLat(e.lngLat)
-              .addTo(this.mapService.map);
-          }, error => console.error(error));
-      }
-    });
-  }
-
-  toggleEditing() {
-    this.editing = !this.editing;
   }
 
   solve() {

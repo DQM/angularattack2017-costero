@@ -46,6 +46,22 @@ export class MapViewComponent implements OnInit {
 
     this.mapService.map = map;
 
+    this.mapService.map.on('click', (e: MapMouseEvent) => {
+        let latlng: any = {};
+        latlng.longitude = e.lngLat.lng;
+        latlng.latitude = e.lngLat.lat;
+
+        this.mapService.map.setCenter([e.lngLat.lng, e.lngLat.lat]);
+
+        this.geocoder.buildLocation(latlng)
+          .subscribe(location => {
+            let marker = new Popup()
+              .setHTML(location.address.formatted)
+              .setLngLat(e.lngLat)
+              .addTo(this.mapService.map);
+          }, error => console.error(error));
+    });
+
     this.route.params
     // map to Observable<Issue>
     .switchMap( params => {
