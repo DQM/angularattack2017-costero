@@ -62,8 +62,8 @@ export class MapViewComponent implements OnInit {
         let location = new Location();
         location.latitude = issue.lat;
         location.longitude = issue.long;
+        this.mapService.setCurrentPosition(location.longitude, location.latitude);
         this.issuesLocationQuery = this.data.getIssuesAround(location, 5);
-        this.mapService.setCurrentPosition(issue.long, issue.lat);
 
       },
       // No issue selected

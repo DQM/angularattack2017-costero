@@ -6,19 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./issue-form.component.scss']
 })
 export class IssueFormComponent implements OnInit {
-  public opened: boolean = false;
-
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   submitForm() {
-    this.opened = true;
-  }
-
-  close() {
-    this.opened = false;
+    console.log("Add issue to db");
   }
 
 }
