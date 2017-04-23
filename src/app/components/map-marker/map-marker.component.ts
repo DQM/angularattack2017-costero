@@ -26,12 +26,18 @@ export class MapMarkerComponent implements OnInit {
   private author: Observable<Author>;
   private popupVisible: boolean = false;
 
+  private hasLiked: Observable<boolean> = Observable.of(false);
+  private likes: Observable<number> = Observable.of(0);
+
   constructor(private mapService: MapService, private geocoder: GeocodingService, private data: DataApiService) {
     this.editing = false;
 
   }
 
   ngOnInit() {
+
+    this.hasLiked = this.data.hasLiked(this.issueObs.$ref.key);
+    this.likes = this.data.getTotalLikes(this.issueObs.$ref.key);
 
     this.popup = new Popup()
       // .setHTML('Title: asdasjjjjjjjjjjjjjjjj j asdla ksjdlaks jdkalsjd lkajdklasjd lkajd lkajdlkajdl');
@@ -77,6 +83,12 @@ export class MapMarkerComponent implements OnInit {
 
   solved() {
     // TODO
+  }
+
+  like() {
+
+    this.data.performLike(this.issueObs.$ref.key);
+
   }
 
 }

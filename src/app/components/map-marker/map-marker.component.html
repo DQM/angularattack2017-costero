@@ -15,7 +15,7 @@
   <p>Title: {{ issue.title }}</p>
   <p>Description: {{ issue.description }}</p>
   <p>Author: {{ (author | async)?.displayName }}</p>
-  <p>Likes: {{ issue.likes }}</p>
+  <p>Likes: {{ likes | async }}</p>
   <p>Created: {{ issue.date_created }}</p>
 
   <p>
@@ -23,6 +23,10 @@
     <span *ngIf="issue.solved">Yes! 😍</span>
     <span *ngIf="!issue.solved && !owned()">No 😡</span>
     <button kendoButton *ngIf="!issue.solved && owned()" (click)="solve()" [primary]="true">Mark as solved!</button>
+  </p>
+
+  <p>
+    <button kendoButton (click)="like()" [primary]="true" *ngIf="!(hasLiked | async)">Upvote!</button>
   </p>
 
 </div>

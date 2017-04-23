@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@angular/core';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
 
@@ -8,6 +8,7 @@ import * as firebase from 'firebase';
 import { UUID } from 'angular2-uuid';
 
 import { WindowRefService } from './window-ref.service';
+import { AuthService } from './auth.service';
 import { Issue } from "../core/issue";
 import { Location } from "../core/location.class";
 import { Author } from "../core/author";
@@ -15,7 +16,6 @@ import { Author } from "../core/author";
 @Injectable()
 export class DataApiService {
 
-  private af: any;
   private db: any;
   private storage: any;
   private issues: any;
@@ -23,11 +23,10 @@ export class DataApiService {
 
   private window: any;
 
-  constructor(af: AngularFire, @Inject(FirebaseApp) firebaseApp: firebase.app.App, windowRef: WindowRefService) {
+  constructor(private af: AngularFire, @Inject(FirebaseApp) firebaseApp: firebase.app.App, windowRef: WindowRefService, private auth: AuthService) {
 
     this.window = windowRef.nativeWindow
 
-    this.af = af;
     this.db = af.database;
 
     this.storage = firebaseApp.storage();
@@ -91,7 +90,47 @@ export class DataApiService {
     return bhs;
   }
 
+  public performLike(issueId): Promise<boolean> {
+
+    return new Promise( (resolve, reject) => {
+
+      this.hasLiked(issueId).take(1).subscribe(
+
+        liked => {
+          if(liked) return resolve(true);
+          this.db.object('/issues/' + issueId + '/likes_uids/'+this.auth.getUser().getValue().uid).set(true)
+          .then(resolve)
+          .catch(reject);
+        },
+        reject
+
+      );
+
+    });
+
+  }
+
+  public hasLiked(issueId: string): Observable<boolean> {
+
+    return this.db.list('/issues/' + issueId + '/likes_uids', {
+      query: {
+        orderByKey: true,
+        equalTo: this.auth.getUser().getValue().uid,
+        limitToFirst: 1
+      }
+    }).map(res => res.length > 0);
+
+  }
+
+  public getTotalLikes(issueId: string): Observable<number> {
+
+    return this.db.list('/issues/' + issueId + '/likes_uids')
+    .map(res => res.length);
+
+  }
+
 }
+
 
 export class UploadTask {
 
