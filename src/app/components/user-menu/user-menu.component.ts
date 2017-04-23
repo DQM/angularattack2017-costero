@@ -24,15 +24,6 @@ export class UserMenuComponent implements OnInit {
 
   ngOnInit() { }
 
-  public itemClick(dataItem: any): void {
-    if (dataItem.text == "Logout") {
-      this.auth.logout();
-      this.user = null;
-    } else if (dataItem.text == "My issues") {
-      console.log("My Issues");
-    }
-  }
-
   private getUser() {
     this.auth.getUser().subscribe(
       user => {
@@ -45,6 +36,11 @@ export class UserMenuComponent implements OnInit {
     this.auth.login()
       .then(() => this.getUser())
       .catch(err => console.log(err));
+  }
+
+  public logout() {
+    this.auth.logout();
+    this.user = null;
   }
 
 }

@@ -21,10 +21,10 @@
 
 .cancel-btn {
   position: fixed;
-  width: 150px;
+  width: 200px;
   padding: 16px;
   bottom: 0;
-  right: 150px;
+  right: 200px;
   z-index: 300;
   border-radius: 0;
   border-left: 0;
@@ -41,7 +41,3 @@
     border-bottom: 1px solid rgba(0, 0, 0, 0.125);
   }
 }
-
-// &:last-of-type {
-//   border-bottom: none;
-// }

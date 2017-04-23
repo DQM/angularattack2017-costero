@@ -6,13 +6,13 @@
       <!-- Title -->
       <label for="issue-title" class="k-form-field">
           <span>Title</span>
-          <input id="issue-title" type="text" class="k-textbox" [(ngModel)]="issue.title" name="title">
+          <input id="issue-title" type="text" class="k-textbox" [(ngModel)]="issue.title" name="title" required>
       </label>
 
       <!-- Description -->
       <label for="issue-description" class="k-form-field">
           <span>Description</span>
-          <textarea id="issue-description" class="k-textarea" [(ngModel)]="issue.description" name="description">{{ description }}</textarea>
+          <textarea id="issue-description" class="k-textarea" [(ngModel)]="issue.description" name="description" required>{{ description }}</textarea>
       </label>
 
       <!-- Photos -->
