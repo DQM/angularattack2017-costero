@@ -59,8 +59,8 @@ export class IssueFormComponent implements OnInit {
     issue.solved = false;
     issue.date_created = new Date().toUTCString();
     this.data.addIssue(issue)
-      .then(this.successAdding)
-      .catch(this.failAdding);
+      .then(() => this.successAdding)
+      .catch(err => this.failAdding());
   }
 
   successAdding() {

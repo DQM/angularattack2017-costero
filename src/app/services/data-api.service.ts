@@ -76,7 +76,7 @@ export class DataApiService {
 
           let newKey = this.issues.push(issue).key;
           let geoFire = new this.window.GeoFire(this.locations.$ref);
-          geoFire.set(newKey, [issue.lat, issue.long]);
+          geoFire.set(newKey, [issue.lat, issue.long]).then(resolve).catch(reject);
 
         },
         reject

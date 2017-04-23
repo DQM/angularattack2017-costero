@@ -123,8 +123,6 @@ export class MapViewComponent implements OnInit {
 
   updateQuery(from) {
 
-    console.log(from);
-
     let bounds = this.mapService.map.getBounds();
     let center = bounds.getCenter();
     let south = bounds.getSouth();
