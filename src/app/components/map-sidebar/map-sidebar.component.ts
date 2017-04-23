@@ -27,7 +27,6 @@ export class MapSidebarComponent implements OnInit {
 
   public closeDialog(cause?: string) {
     this.addReport = false;
-    console.log("Closing...");
   }
 
 }

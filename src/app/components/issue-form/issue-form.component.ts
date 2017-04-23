@@ -90,7 +90,6 @@ export class IssueFormComponent implements OnInit {
       this.submitAfterLoadingImages = true;
       return;
     }
-
     this.pService.start();
 
     this.issue.solved = false;
