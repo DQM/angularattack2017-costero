@@ -23,6 +23,10 @@ export class IssueFormComponent implements OnInit {
   private added: boolean;
   private error: string;
 
+  private loadingImages: boolean = false;
+  private submitAfterLoadingImages: boolean = false;
+  private showWaitingPopup: boolean = false;
+
   private photos: any[] = [];
 
   constructor(
@@ -71,7 +75,22 @@ export class IssueFormComponent implements OnInit {
 
   }
 
+  clearWaitingPopup() {
+    this.showWaitingPopup = false;
+  }
+
+  checkWaitingPopup() {
+    if(this.loadingImages) {
+      this.showWaitingPopup = true;
+    }
+  }
+
   submitForm() {
+    if(this.loadingImages) {
+      this.submitAfterLoadingImages = true;
+      return;
+    }
+
     this.pService.start();
 
     this.issue.solved = false;
@@ -85,6 +104,7 @@ export class IssueFormComponent implements OnInit {
   successAdding() {
     this.added = true;
     this.issue = new Issue();
+    this.photos = [];
     this.pService.done();
   }
 
@@ -102,6 +122,7 @@ export class IssueFormComponent implements OnInit {
   }
 
   onSelectFile(event) {
+    this.loadingImages = true;
     // max 5 files
     let files: any[] = [];
     for (let i = 0; i < 5 && i < event.srcElement.files.length;i++) {
@@ -141,6 +162,13 @@ export class IssueFormComponent implements OnInit {
     Promise.all(promises).then((files) => {
       this.pService.done();
       this.photos = this.photos.concat(files);
+      this.loadingImages = false;
+
+      if (this.submitAfterLoadingImages) {
+        this.submitForm();
+        this.submitAfterLoadingImages = false;
+      }
+
     }).catch(err => console.log);
 
   }

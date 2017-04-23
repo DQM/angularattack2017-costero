@@ -31,6 +31,7 @@ import { LayoutModule } from '@progress/kendo-angular-layout';
 import { InputsModule } from '@progress/kendo-angular-inputs';
 import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 import { ScrollViewModule } from '@progress/kendo-angular-scrollview';
+import { PopupModule } from '@progress/kendo-angular-popup';
 
 // Router
 import { RouterModule, Routes } from '@angular/router';
@@ -84,6 +85,7 @@ export const firebaseConfig = {
     InputsModule,
     DropDownsModule,
     ScrollViewModule,
+    PopupModule,
 
     NgProgressModule
   ],

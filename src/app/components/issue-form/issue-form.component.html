@@ -17,7 +17,7 @@
     <label for="issue-photo" class="k-form-field">
         <span>Photo</span>
         <input #fileInput type="file" class="hidden-file-input" (change)="onSelectFile($event)" accept="image/*" multiple="true">
-        <button kendoButton (click)="openFileSelection()" primary="true">Select photo</button>
+        <button kendoButton (click)="openFileSelection()" primary="true" [disabled]="loadingImages">Select photo</button>
         <p *ngFor="let photo of photos">
           <span>x</span> {{ photo.name }}
         </p>
@@ -58,7 +58,11 @@
   </fieldset>
 
   <span *ngIf="error" class="error">{{ error }}</span>
-  <button kendoButton class="confirm-btn" (click)="submitForm()" primary="true">Confirm</button>
+  <button #submitButton kendoButton class="confirm-btn" (click)="submitForm()" (mouseenter)="checkWaitingPopup()" (mouseleave)="clearWaitingPopup()" primary="true">Confirm</button>
+  <kendo-popup [popupClass]="'waiting-popup'" [anchor]="submitButton" (anchorViewportLeave)="clearWaitingPopup()" *ngIf="showWaitingPopup">
+    <p>Images are still being processed...</p>
+    <p>You submission will be done in a second :)</p>
+  </kendo-popup>
 </form>
 
 <kendo-dialog *ngIf="added" (close)="closeDialog()">
