@@ -6,11 +6,11 @@
   <p>
     <img [src]="(issue | async)?.photos[0]" *ngIf="(issue | async)?.photos && (issue | async)?.photos.length>0" alt="">
   </p>
-  <p>Title: {{ (issue | async)?.title }}</p>
-  <p>Description: {{ (issue | async)?.description }}</p>
-  <p>Author: {{ (author | async)?.displayName }}</p>
+  <h1>{{ (issue | async)?.title }}</h1>
+  <h4>{{ (issue | async)?.description }}</h4>
+  <p>Created by {{ (author | async)?.displayName }} on {{ (issue | async)?.date_created | date:'fullDate' }}</p>
   <p>Upvotes: {{ likes | async }}</p>
-  <p>Created: {{ (issue | async)?.date_created | date:'fullDate' }}</p>
+  <!--<p>Created: {{ (issue | async)?.date_created | date:'fullDate' }}</p>-->
 
   <p>
     Solved:
