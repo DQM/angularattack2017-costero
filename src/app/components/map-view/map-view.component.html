@@ -4,5 +4,3 @@
 <app-map-marker [issue]="issue" [startOpen]="(issue | async)?.iid == selectedIssueId" *ngFor="let issue of (issuesLocationQuery?.issues | async)"></app-map-marker>
 
 <app-map-sidebar></app-map-sidebar>
-
-<!-- <app-issue-form></app-issue-form> -->
