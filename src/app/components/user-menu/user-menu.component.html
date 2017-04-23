@@ -4,7 +4,7 @@
       <img src="{{ user.photoURL }}" alt="{{ user.displayName }}">
     </div>
     <div>
-      <p>{{ user.displayName }}</p>
+      <span class="title">{{ user.displayName }}</span>
     </div>
     <div>
       <kendo-dropdownbutton [data]="options" (itemClick)="itemClick($event)">

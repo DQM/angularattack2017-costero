@@ -15,6 +15,7 @@
   // padding: 0;
   overflow-y: auto;
   overflow-x: hidden;
+  background-color: white;
 }
 
 textarea {
@@ -36,6 +37,7 @@ textarea {
 .confirm-btn {
   position: fixed;
   width: 300px;
+  padding: 16px;
   bottom: 0;
   right: 0;
   z-index: 10;
