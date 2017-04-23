@@ -57,8 +57,8 @@
     </label>
   </fieldset>
 
+  <span *ngIf="error" class="error">{{ error }}</span>
   <button kendoButton class="confirm-btn" (click)="submitForm()" primary="true">Confirm</button>
-  <span>{{ error }}</span>
 </form>
 
 <kendo-dialog *ngIf="added" (close)="closeDialog()">

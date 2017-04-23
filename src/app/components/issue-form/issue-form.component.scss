@@ -41,3 +41,24 @@ textarea {
   z-index: 10;
   border-radius: 0;
 }
+
+.error {
+  text-align: center;
+  background-color: #e6e6e6;
+  color: #e67d4a;
+  padding: 10px;
+  position: fixed;
+  width: 300px;
+  bottom: 30px;
+  right: 0;
+  z-index: 10;
+  font-weight: bold;
+}
+
+fieldset {
+  margin-bottom: 60px;
+}
+
+fieldset:nth-child(2) input {
+  background-color: #e6e6e6;
+}
