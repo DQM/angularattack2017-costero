@@ -32,3 +32,12 @@ textarea {
   position: absolute;
   left: 10000px;
 }
+
+.confirm-btn {
+  position: fixed;
+  width: 300px;
+  bottom: 0;
+  right: 0;
+  z-index: 10;
+  border-radius: 0;
+}
