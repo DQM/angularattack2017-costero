@@ -53,6 +53,16 @@ export class DataApiService {
     }).map( arr => arr.sort( (a, b) => -(a.likes - b.likes) ) );
   }
 
+  public getRecentIssues(limit?: number): Observable<Issue[]> {
+    limit = limit || 50;
+    return this.db.list('/issues', {
+      query: {
+        orderByChild: 'date_created',
+        limitToLast: limit
+      }
+    }).map( arr => arr.sort( (a, b) => -(a.date_created - b.date_created) ) );
+  }
+
   public addIssue(issue: Issue) {
 
     let newKey = this.issues.push(issue).key;

@@ -1,16 +1,3 @@
-<!-- <kendo-tabstrip>
-  <kendo-tabstrip-tab [title]="'Paris'" [selected]="true">
-    <ng-template kendoTabContent>
-    </ng-template>
-  </kendo-tabstrip-tab>
-  <kendo-tabstrip-tab [title]="'New York City'">
-    <ng-template kendoTabContent>
-    </ng-template>
-  </kendo-tabstrip-tab>
-  <kendo-tabstrip-tab [title]="'Sydney'" [disabled]="true"></kendo-tabstrip-tab>
-</kendo-tabstrip> -->
-
-
 <form action="#" class="k-form">
   <fieldset>
     <legend>Description</legend>
@@ -25,7 +12,7 @@
     <!-- Description -->
     <label for="issue-description" class="k-form-field">
         <span>Description</span>
-        <textarea id="issue-description" cols="30" rows="10" class="k-textarea"></textarea>
+        <textarea id="issue-description" class="k-textarea"></textarea>
     </label>
 
     <!-- Photos -->
@@ -40,19 +27,19 @@
     <!-- City -->
     <label for="issue-city" class="k-form-field">
         <span>City</span>
-        <input id="issue-city" type="text" class="k-textbox">
+        <input id="issue-city" type="text" class="k-textbox" readonly>
     </label>
 
     <!-- State -->
     <label for="issue-state" class="k-form-field">
         <span>State</span>
-        <input id="issue-state" type="text" class="k-textbox">
+        <input id="issue-state" type="text" class="k-textbox" readonly>
     </label>
 
     <!-- Country -->
     <label for="issue-country" class="k-form-field">
         <span>Country</span>
-        <input id="issue-country" type="text" class="k-textbox">
+        <input id="issue-country" type="text" class="k-textbox" readonly>
     </label>
 
     <!-- Latitude -->
@@ -68,13 +55,5 @@
     </label>
   </fieldset>
 
-  <button kendoButton [icon]="plus" *ngIf="!opened" (click)="submitForm()">Add issue</button>
-
-  <kendo-dialog title="Please confirm" *ngIf="opened" (close)="close('cancel')">
-    <p>Are you sure you want to continue?</p>
-    <kendo-dialog-actions>
-      <button kendoButton (click)="close('no')">No</button>
-      <button kendoButton (click)="close('yes')" primary="true">Yes</button>
-    </kendo-dialog-actions>
-  </kendo-dialog>
+  <button kendoButton [icon]="plus" (click)="submitForm()">Add issue</button>
 </form>

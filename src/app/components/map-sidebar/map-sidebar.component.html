@@ -1,54 +1,23 @@
-<div class="map-sidebar">
+<div class="map-sidebar" *ngIf="!addReport">
 
   <kendo-tabstrip>
     <kendo-tabstrip-tab [title]="'Recent'" [selected]="true">
       <ng-template kendoTabContent>
         <kendo-panelbar>
-            <kendo-panelbar-item [title]="'My Teammates'" expanded="true">
+            <kendo-panelbar-item [title]="'Issues'" expanded="true">
                 <ng-template kendoPanelBarContent>
                     <div>
-                        <div class="teamMate">
+                        <div *ngFor="let issue of recentIssues | async" class="teamMate">
                             <!--<img [src]="imageUrl('andrew')" alt="Andrew Fuller">-->
                             <span class="mate-info">
-                              <h2>Andrew Fuller</h2>
-                              <p>Team Lead</p>
+                              <h2>{{ (issue)?.title }}</h2>
+                              <p>{{ (issue)?.description }}</p>
                             </span>
-                        </div>
-                        <div class="teamMate">
-                            <!--<img [src]="imageUrl('nancy')" alt="Nancy Leverling">-->
-                            <span class="mate-info">
-                              <h2>Nancy Leverling</h2>
-                              <p>Sales Associate</p>
-                            </span>
-                        </div>
-                        <div class="teamMate">
-                            <!--<img [src]="imageUrl('robert')" alt="Robert King">-->
-                              <span class="mate-info">
-                              <h2>Robert King</h2>
-                              <p>Business System Analyst</p>
-                            </span>
+                            <button kendoButton [icon]="'plus'"></button>
                         </div>
                     </div>
                 </ng-template>
             </kendo-panelbar-item>
-            <kendo-panelbar-item [title]="'Projects'">
-                <kendo-panelbar-item [title]="'New Business Plan'"></kendo-panelbar-item>
-                <kendo-panelbar-item [title]="'Sales Forecasts'">
-                    <kendo-panelbar-item [title]="'Q1 Forecast'"></kendo-panelbar-item>
-                    <kendo-panelbar-item [title]="'Q2 Forecast'"></kendo-panelbar-item>
-                    <kendo-panelbar-item [title]="'Q3 Forecast'"></kendo-panelbar-item>
-                    <kendo-panelbar-item [title]="'Q4 Forecast'"></kendo-panelbar-item>
-                </kendo-panelbar-item>
-                <kendo-panelbar-item [title]="'Sales Reports'"></kendo-panelbar-item>
-            </kendo-panelbar-item>
-            <kendo-panelbar-item [title]="'Programs'">
-                <kendo-panelbar-item [title]="'Monday'"></kendo-panelbar-item>
-                <kendo-panelbar-item [title]="'Tuesday'"></kendo-panelbar-item>
-                <kendo-panelbar-item [title]="'Wednesday'"></kendo-panelbar-item>
-                <kendo-panelbar-item [title]="'Thursday'"></kendo-panelbar-item>
-                <kendo-panelbar-item [title]="'Friday'"></kendo-panelbar-item>
-            </kendo-panelbar-item>
-            <kendo-panelbar-item [title]="'Communication'" [disabled]="true"></kendo-panelbar-item>
         </kendo-panelbar>
       </ng-template>
     </kendo-tabstrip-tab>
@@ -61,4 +30,12 @@
     </kendo-tabstrip-tab>
   </kendo-tabstrip>
 
+  <!-- Add Report -->
+  <button kendoButton class="map-sidebar-add" (click)="openDialog()" [icon]="'plus'"> Report</button>
 </div>
+
+<div *ngIf="addReport">
+  <app-issue-form></app-issue-form>
+  <button kendoButton class="close-btn" (click)="closeDialog()"><span class="k-icon k-i-close"></span></button>
+</div>
+
