@@ -1,11 +1,11 @@
-<div>
-  <!--<img [src]="imageUrl('andrew')" alt="Andrew Fuller">-->
-  <span class="mate-info">
+<div class="issue-item">
+  <!-- <img [src]="imageUrl('andrew')" alt="Andrew Fuller"> -->
+  <span class="issue-item-count">{{ (likes | async) }}</span>
+  <div class="issue-item-description">
     <a [routerLink]="['/map', issue?.iid]">
       <h2>{{ (issue)?.title }}</h2>
     </a>
     <p>{{ (issue)?.description }}</p>
-    <p>Upvotes: {{ (likes | async) }}</p>
-  </span>
-  <button kendoButton [icon]="'plus'"></button>
+  </div>
+  <button class="issue-item-button" kendoButton [icon]="'plus'"></button>
 </div>
