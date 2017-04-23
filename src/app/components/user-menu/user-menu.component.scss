@@ -41,14 +41,20 @@ img {
 
 nav {
   padding: 5px;
-  // border-bottom: 2px solid rgba(0, 0, 0, 0.125)
+  background-color: #0275d8;
 }
 
 .title {
   display: block;
   margin: 8px 0;
+  color: #fff;
 }
 
 .login {
   text-align: center;
+}
+
+.login button {
+  width: 100%;
+  height: 100%;
 }
