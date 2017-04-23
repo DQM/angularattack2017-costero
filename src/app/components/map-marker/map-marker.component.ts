@@ -24,8 +24,8 @@ export class MapMarkerComponent implements OnInit {
 
   private editing: boolean;
   private marker: any;
+  private popup: any = null;
   private author: Observable<Author>;
-  private userClicked: boolean = false;
 
   private hasLiked: Observable<boolean> = Observable.of(false);
   private likes: Observable<number> = Observable.of(0);
@@ -55,21 +55,30 @@ export class MapMarkerComponent implements OnInit {
 
     this.issue.subscribe(
       iss => {
+
+        if (this.popup) {
+          this.popup.userClosed = false;
+          this.popup.setHTML('');
+          this.popup.remove();
+          this.popup = null;
+        }
+
         this.author = this.data.getAuthor(this.issue.author);
         this.marker.setLngLat([iss.long, iss.lat]);
       }
     );
 
     if(this.startOpen) {
-      let cb = (p) => {
+      let cb = () => {
+        if(!this.popup.userClosed) return;
         this.router.navigate(['/map']);
-        // this.popup.off(popupCloseCb);
       };
-      var p = new Popup()
+      this.popup = new Popup()
         .setDOMContent(this.popupEl.nativeElement)
         .setLngLat(this.marker.getLngLat())
-        .on('close', cb.bind(p))
+        .on('close', cb)
         .addTo(this.mapService.map);
+      this.popup.userClosed = true;
     }
 
     this.mapService.map.on('click', (e: MapMouseEvent) => {
@@ -107,7 +116,6 @@ export class MapMarkerComponent implements OnInit {
   click() {
     this.issue.first().subscribe(
       iss => {
-        this.userClicked = true;
         this.router.navigate(['/map', iss.iid]);
       }
     );
