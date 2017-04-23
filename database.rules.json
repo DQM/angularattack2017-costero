@@ -1,6 +1,12 @@
 {
   "rules": {
     ".read": "true",
-    ".write": "true"
+    ".write": "true",
+    "issues": {
+      ".indexOn": ["date_created", "likes"]
+    },
+    "locations": {
+      ".indexOn": ["g"]
+    }
   }
 }
