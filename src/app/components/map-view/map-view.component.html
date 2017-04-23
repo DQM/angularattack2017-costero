@@ -1,6 +1,6 @@
 
 <div id="map" class="map"></div>
 
-<app-map-marker [issue]="issue" [startOpen]="(issue | async)?.iid == selectedIssueId" *ngFor="let issue of (getIssues() | async)"></app-map-marker>
+<app-map-marker [issue]="issue" *ngFor="let issue of (getIssues() | async)"></app-map-marker>
 
 <app-map-sidebar></app-map-sidebar>

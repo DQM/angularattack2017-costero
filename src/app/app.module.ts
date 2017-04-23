@@ -40,8 +40,8 @@ import { UserMenuComponent } from './components/user-menu/user-menu.component';
 
 const appRoutes: Routes = [
   // { path: '', component: AppComponent},
-  { path: '', redirectTo: '/map', pathMatch: 'full' },
-  { path: 'map', component: MapViewComponent},
+  { path: '', redirectTo: '/map/browse', pathMatch: 'full' },
+  { path: 'map', redirectTo: '/map/browse', pathMatch: 'full' },
   { path: 'stats', component: AppStatsComponent},
   { path: 'map/:issueId', component: MapViewComponent}
 ];
