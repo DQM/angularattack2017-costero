@@ -34,6 +34,15 @@
 
     &-button {
       float: right;
+      padding: 6px 10px !important;
     }
   }
+}
+
+.k-panelbar>.k-item>.k-link {
+  display: none;
+}
+
+.k-button[selected] {
+  background-color: #ddd;
 }
