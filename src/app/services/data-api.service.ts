@@ -160,6 +160,23 @@ export class DataApiService {
 
   }
 
+  public removeLike(issueId): Promise<boolean> {
+
+    return new Promise( (resolve, reject) => {
+
+      return this.db.object('/issues/' + issueId + '/likes_uids/' + this.auth.getUser().getValue().uid).remove().then(() => {
+
+        this.getTotalLikes(issueId).subscribe(
+          total => this.db.object('/issues/' + issueId + '/_likes').set(total).then(resolve).catch(reject),
+          err => reject(err)
+        );
+
+      }).catch(reject);
+
+    });
+
+  }
+
   public hasLiked(issueId: string): Observable<boolean> {
 
     return this.db.list('/issues/' + issueId + '/likes_uids', {
