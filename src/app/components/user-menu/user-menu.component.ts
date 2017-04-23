@@ -17,7 +17,6 @@ export class UserMenuComponent implements OnInit {
   constructor(private auth: AuthService) {
     auth.getUser().subscribe(
       user => {
-        console.log(user);
         this.user = user;
       }
     );
@@ -26,7 +25,6 @@ export class UserMenuComponent implements OnInit {
   ngOnInit() { }
 
   public itemClick(dataItem: any): void {
-    // console.log(`You clicked ${dataItem.text}`);
     if (dataItem.text == "Logout") {
       this.auth.logout();
       this.user = null;
@@ -38,7 +36,6 @@ export class UserMenuComponent implements OnInit {
   private getUser() {
     this.auth.getUser().subscribe(
       user => {
-        console.log(user);
         this.user = user;
       }
     );
