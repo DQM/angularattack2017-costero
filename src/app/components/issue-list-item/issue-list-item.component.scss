@@ -4,15 +4,15 @@
     width: 100%;
     padding: 16px 0;
 
-    &:not(:last-child) {
-      border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    a {
+      text-decoration: none;
     }
 
     h2 {
-      font-size: 1.3em;
+      font-size: 1.2em;
       font-weight: normal;
       line-height: 100%;
-      margin: 0;
+      margin: 0 0 4px 0;
     }
 
     p {
