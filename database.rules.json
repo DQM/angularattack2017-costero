@@ -1,12 +1,58 @@
 {
   "rules": {
     ".read": "true",
-    ".write": "true",
+    ".write": "auth != null",
     "issues": {
-      ".indexOn": ["date_created", "_likes", "iid", "author"]
+      ".indexOn": [
+        "date_created",
+        "_likes",
+        "iid",
+        "author"
+      ]
     },
     "locations": {
-      ".indexOn": ["g"]
+      ".indexOn": [
+        "g"
+      ]
     }
   }
 }
+
+
+// {
+//   "rules": {
+
+//     ".read": "true",
+//     ".write": "auth != null",
+
+//     "issues": {
+
+//       ".indexOn": ["date_created", "_likes", "iid", "author"],
+//       "$issue": {
+//         ".write": "auth.uid === data.child('author').val()"
+//       }
+
+//     },
+
+//     "locations": {
+//       ".indexOn": ["g"]
+//     },
+
+//     "users": {
+
+//       "$uid": {
+
+//         ".read": "true",
+//         ".write": "$uid === auth.uid",
+
+//         "email": {
+//           ".read": "$uid === auth.uid",
+//           ".write": "$uid === auth.uid"
+//         }
+
+//       }
+
+//     }
+
+//   }
+// }
